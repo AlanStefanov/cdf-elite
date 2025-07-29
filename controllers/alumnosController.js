@@ -15,101 +15,126 @@ const formatDate = (date) => {
 // Display list of all alumnos
 exports.index = async (req, res) => {
     try {
-        const alumnos = await Alumno.findAll({
-            order: [['createdAt', 'DESC']]
-        });
-
-        // Add formatted dates and membership status
-        const formattedAlumnos = alumnos.map(alumno => ({
-            ...alumno.toJSON(),
-            fecha_nacimiento: formatDate(alumno.fecha_nacimiento),
-            fecha_vencimiento_membresia: formatDate(alumno.fecha_vencimiento_membresia),
-            estado_membresia: new Date() > new Date(alumno.fecha_vencimiento_membresia) ? 'Vencida' : 'Activa'
-        }));
-
         res.render('alumnos/index', {
             title: 'Alumnos - CDF Entrenamiento Elite',
-            alumnos: formattedAlumnos
+            user: req.session.userId
         });
     } catch (error) {
-        console.error('Error fetching alumnos:', error);
-        res.status(500).json({ error: 'Error al cargar la lista de alumnos' });
+        console.error('Error rendering alumnos page:', error);
+        req.flash('error', 'Error al cargar los alumnos');
+        res.redirect('/dashboard');
     }
 };
 
-// API endpoint for Tabulator
-exports.apiList = async (req, res) => {
+// API endpoint for DataGrid
+exports.apiData = async (req, res) => {
     try {
         const alumnos = await Alumno.findAll({
+            include: [{
+                model: Plan,
+                as: 'plan',
+                attributes: ['nombre_plan']
+            }],
             order: [['createdAt', 'DESC']]
         });
 
-        const data = alumnos.map(alumno => ({
-            id: alumno.id,
-            nombre: alumno.nombre,
-            apellido: alumno.apellido,
-            dni: alumno.dni,
-            email: alumno.email,
-            telefono: alumno.telefono,
-            fecha_nacimiento: formatDate(alumno.fecha_nacimiento),
-            fecha_vencimiento_membresia: formatDate(alumno.fecha_vencimiento_membresia),
-            plan: {
-                nombre_plan: '' // Empty string by default
-            },
-            estado_membresia: new Date() > new Date(alumno.fecha_vencimiento_membresia) ? 'Vencida' : 'Activa'
-        }));
+        // Format data for DataGrid and add membership status
+        const formattedAlumnos = alumnos.map(alumno => {
+            const now = new Date();
+            const vencimiento = new Date(alumno.fecha_vencimiento_membresia);
+            let estado = 'Activa';
 
-        res.json({
-            data: data
+            if (vencimiento < now) {
+                estado = 'Vencida';
+            } else if (vencimiento <= new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000))) {
+                estado = 'Por vencer';
+            }
+
+            return {
+                id: alumno.id,
+                nombre: alumno.nombre,
+                apellido: alumno.apellido,
+                dni: alumno.dni,
+                email: alumno.email,
+                telefono: alumno.telefono,
+                fecha_nacimiento: formatDate(alumno.fecha_nacimiento),
+                plan: alumno.plan ? alumno.plan.nombre_plan : 'Sin plan',
+                fecha_vencimiento_membresia: formatDate(alumno.fecha_vencimiento_membresia),
+                estado_membresia: estado
+            };
         });
+
+        console.log('Sending alumnos data:', formattedAlumnos.length, 'alumnos');
+        res.json(formattedAlumnos);
     } catch (error) {
-        console.error('Error fetching alumnos for API:', error);
-        res.status(500).json({
-            error: 'Error al obtener la lista de alumnos'
-        });
+        console.error('Error fetching alumnos API data:', error);
+        res.status(500).json([]);
     }
 };
+
+
 
 // Display add form
 exports.addForm = async (req, res) => {
     try {
-        const planes = await Plan.findAll();
+        const planes = await Plan.findAll({
+            order: [['nombre_plan', 'ASC']]
+        });
+        
         res.render('alumnos/add', {
             title: 'Agregar Alumno - CDF Entrenamiento Elite',
-            planes
+            user: req.session.userId,
+            planes,
+            error: req.flash('error')[0],
+            success: req.flash('success')[0]
         });
     } catch (error) {
         console.error('Error fetching planes:', error);
-        res.status(500).json({ error: 'Error al cargar los planes' });
+        req.flash('error', 'Error al cargar los planes');
+        res.redirect('/alumnos');
     }
 };
 
 // Process add form
 exports.create = async (req, res) => {
     try {
-        const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan } = req.body;
-        
-        const plan = await Plan.findByPk(id_plan);
-        if (!plan) {
-            throw new Error('Plan no encontrado');
-        }
+        const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan, fecha_vencimiento_membresia } = req.body;
 
         // Validate required fields
-        if (!nombre || !apellido || !dni || !email || !telefono || !fecha_nacimiento) {
-            throw new Error('Todos los campos son requeridos');
+        if (!nombre || !apellido || !dni || !email || !telefono || !fecha_nacimiento || !id_plan) {
+            req.flash('error', 'Todos los campos son requeridos');
+            return res.redirect('/alumnos/add');
         }
 
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            throw new Error('Formato de email inválido');
+            req.flash('error', 'Formato de email inválido');
+            return res.redirect('/alumnos/add');
         }
 
-        // Calculate membership expiration
-        const fechaVencimiento = new Date();
-        fechaVencimiento.setDate(fechaVencimiento.getDate() + plan.duracion_dias);
+        const plan = await Plan.findByPk(id_plan);
+        if (!plan) {
+            req.flash('error', 'Plan no encontrado');
+            return res.redirect('/alumnos/add');
+        }
 
-        const newAlumno = await Alumno.create({
+        // Use provided expiration date or calculate it
+        let fechaVencimiento;
+        if (fecha_vencimiento_membresia) {
+            fechaVencimiento = new Date(fecha_vencimiento_membresia);
+        } else {
+            fechaVencimiento = new Date();
+            fechaVencimiento.setDate(fechaVencimiento.getDate() + plan.duracion_dias);
+        }
+
+        // Validate that the expiration date is not in the past
+        if (fechaVencimiento < new Date()) {
+            req.flash('error', 'La fecha de vencimiento no puede ser anterior a hoy');
+            return res.redirect('/alumnos/add');
+        }
+
+        await Alumno.create({
             nombre,
             apellido,
             dni,
@@ -121,10 +146,16 @@ exports.create = async (req, res) => {
             estado_membresia: 'Activa'
         });
 
-        res.status(201).json({ message: 'Alumno agregado exitosamente' });
+        req.flash('success', 'Alumno agregado exitosamente');
+        res.redirect('/alumnos');
     } catch (error) {
         console.error('Error creating alumno:', error);
-        res.status(500).json({ error: error.message || 'Error al agregar el alumno' });
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            req.flash('error', 'Ya existe un alumno con ese DNI o email');
+        } else {
+            req.flash('error', 'Error al agregar el alumno');
+        }
+        res.redirect('/alumnos/add');
     }
 };
 
@@ -185,7 +216,7 @@ exports.update = async (req, res) => {
 
         // Update membership expiration if plan changed
         let fechaVencimiento = new Date(alumno.fecha_vencimiento_membresia);
-        if (alumno.id_plan !== id_plan) {
+        if (parseInt(alumno.id_plan) !== parseInt(id_plan)) {
             fechaVencimiento = new Date();
             fechaVencimiento.setDate(fechaVencimiento.getDate() + plan.duracion_dias);
         }

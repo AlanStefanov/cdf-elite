@@ -92,9 +92,9 @@
 
                         <div>
                             <label for="id_plan" class="block text-sm font-medium text-gray-700">Plan</label>
-                            <select name="id_plan" id="id_plan" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <select name="id_plan" id="id_plan" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" onchange="updateExpirationDate()">
                                 <% planes.forEach(plan => { %>
-                                <option value="<%= plan.id %>" <%= plan.id === alumno.id_plan ? 'selected' : '' %>><%= plan.nombre_plan %></option>
+                                <option value="<%= plan.id %>" data-duracion="<%= plan.duracion_dias %>" <%= plan.id === alumno.id_plan ? 'selected' : '' %>><%= plan.nombre_plan %> - $<%= plan.precio %> (<%= plan.duracion_dias %> días)</option>
                                 <% }) %>
                             </select>
                         </div>
@@ -102,6 +102,7 @@
                         <div>
                             <label for="fecha_vencimiento_membresia" class="block text-sm font-medium text-gray-700">Fecha de Vencimiento de Membresía</label>
                             <input type="date" name="fecha_vencimiento_membresia" id="fecha_vencimiento_membresia" value="<%= new Date(alumno.fecha_vencimiento_membresia).toISOString().split('T')[0] %>" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <p class="mt-1 text-sm text-gray-500" id="plan-info">Al cambiar el plan, se calculará una nueva fecha de vencimiento</p>
                         </div>
 
                         <div>
@@ -126,5 +127,28 @@
             </div>
         </div>
     </main>
+
+    <script>
+        function updateExpirationDate() {
+            const planSelect = document.getElementById('id_plan');
+            const dateInput = document.getElementById('fecha_vencimiento_membresia');
+            const planInfo = document.getElementById('plan-info');
+            
+            if (planSelect.value) {
+                const selectedOption = planSelect.options[planSelect.selectedIndex];
+                const duracionDias = parseInt(selectedOption.getAttribute('data-duracion'));
+                
+                if (duracionDias) {
+                    const today = new Date();
+                    today.setDate(today.getDate() + duracionDias);
+                    
+                    const newDate = today.toISOString().split('T')[0];
+                    dateInput.value = newDate;
+                    planInfo.textContent = `Nueva fecha calculada para ${duracionDias} días: ${new Date(newDate).toLocaleDateString('es-ES')}`;
+                    planInfo.className = 'mt-1 text-sm text-green-600';
+                }
+            }
+        }
+    </script>
 </body>
 </html>

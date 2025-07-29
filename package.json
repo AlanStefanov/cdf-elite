@@ -1,15 +1,30 @@
+
 {
-  "name": "cdf-elite",
+  "name": "cdf-crm",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Sistema de gestión de clientes y membresías para Club de Fútbol Elite",
+  "main": "server.js",
+  "author": "Alan Stefanov",
+  "license": "ISC",
+  "keywords": [
+    "crm",
+    "gym",
+    "fitness",
+    "management",
+    "memberships"
+  ],
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node config/init-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
+    "@mui/x-data-grid": "^8.9.1",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "connect-flash": "^0.1.1",
@@ -18,8 +33,24 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "postcss": "^8.5.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "tailwindcss": "^4.1.11"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alanstefanov/cdf-crm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alanstefanov/cdf-crm/issues"
+  },
+  "homepage": "https://github.com/alanstefanov/cdf-crm#readme"
 }

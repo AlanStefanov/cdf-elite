@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,123 +6,273 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .material-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        .material-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-white shadow-lg">
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="text-xl font-bold text-indigo-600">CDF Entrenamiento Elite</span>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="/dashboard" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
-                        </a>
-                        <a href="/alumnos" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Alumnos
-                        </a>
-                        <a href="/planes" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Planes
-                        </a>
-                        <a href="/colaboradores" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Colaboradores
-                        </a>
-                    </div>
-                </div>
                 <div class="flex items-center">
-                    <a href="/logout" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Cerrar Sesión
+                    <a href="/dashboard" class="text-white text-xl font-bold">
+                        <i class="fas fa-dumbbell mr-2"></i>
+                        CDF Entrenamiento Elite
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                    </a>
+                    <a href="/alumnos" class="text-white hover:text-gray-200 transition-colors font-semibold">
+                        <i class="fas fa-users mr-1"></i>Alumnos
+                    </a>
+                    <a href="/planes" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-clipboard-list mr-1"></i>Planes
+                    </a>
+                    <a href="/colaboradores" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-user-tie mr-1"></i>Colaboradores
+                    </a>
+                    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 rounded-lg bg-white">
-                <% if (locals.success) { %>
-                <div class="rounded-md bg-green-50 p-4 mb-4">
-                    <div class="text-sm text-green-700">
-                        <%= success %>
-                    </div>
-                </div>
-                <% } %>
-                <% if (locals.error) { %>
-                <div class="rounded-md bg-red-50 p-4 mb-4">
-                    <div class="text-sm text-red-700">
-                        <%= error %>
-                    </div>
-                </div>
-                <% } %>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Agregar Nuevo Alumno</h1>
+            <p class="mt-2 text-gray-600">Complete el formulario para agregar un nuevo alumno</p>
+        </div>
 
-                <div class="max-w-2xl mx-auto">
-                    <h1 class="text-2xl font-bold text-gray-900 mb-6">Agregar Nuevo Alumno</h1>
-
-                    <form action="/alumnos/add" method="POST" class="space-y-6">
-                        <div>
-                            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
-                            <input type="text" name="dni" id="dni" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" name="email" id="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                            <input type="tel" name="telefono" id="telefono" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
-                            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="id_plan" class="block text-sm font-medium text-gray-700">Plan</label>
-                            <select name="id_plan" id="id_plan" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <% planes.forEach(plan => { %>
-                                <option value="<%= plan.id %>"><%= plan.nombre_plan %></option>
-                                <% }) %>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="fecha_vencimiento_membresia" class="block text-sm font-medium text-gray-700">Fecha de Vencimiento de Membresía</label>
-                            <input type="date" name="fecha_vencimiento_membresia" id="fecha_vencimiento_membresia" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="estado_membresia" class="block text-sm font-medium text-gray-700">Estado de Membresía</label>
-                            <select name="estado_membresia" id="estado_membresia" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="Activa">Activa</option>
-                                <option value="Inactiva">Inactiva</option>
-                                <option value="Pendiente">Pendiente</option>
-                            </select>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Guardar Alumno
-                            </button>
-                        </div>
-                    </form>
-                </div>
+        <!-- Flash Messages -->
+        <% if (locals.error) { %>
+            <div class="alert alert-error">
+                <span class="material-icons">error</span>
+                <%= error %>
             </div>
+        <% } %>
+        <% if (locals.success) { %>
+            <div class="alert alert-success">
+                <span class="material-icons">check_circle</span>
+                <%= success %>
+            </div>
+        <% } %>
+
+        <!-- Form Card -->
+        <div class="material-card p-6">
+            <form action="/alumnos/add" method="POST" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="apellido" class="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
+                        <input type="text" name="apellido" id="apellido" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="dni" class="block text-sm font-medium text-gray-700 mb-2">DNI</label>
+                        <input type="text" name="dni" id="dni" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" name="email" id="email" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" name="telefono" id="telefono" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700 mb-2">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="id_plan" class="block text-sm font-medium text-gray-700 mb-2">Plan</label>
+                    <select name="id_plan" id="id_plan" required onchange="calcularFechaVencimiento()"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Seleccionar plan...</option>
+                        <% planes.forEach(plan => { %>
+                        <option value="<%= plan.id %>" data-duracion="<%= plan.duracion_dias %>">
+                            <%= plan.nombre_plan %> - $<%= plan.precio %> (<%= plan.duracion_dias %> días)
+                        </option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="fecha_vencimiento_membresia" class="block text-sm font-medium text-gray-700 mb-2">
+                        Fecha de Vencimiento de Membresía
+                    </label>
+                    <input type="date" name="fecha_vencimiento_membresia" id="fecha_vencimiento_membresia"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    
+                    <div class="mt-2 flex items-center space-x-2">
+                        <input type="checkbox" id="usar_calculo_automatico" checked
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="usar_calculo_automatico" class="text-sm text-gray-700">
+                            Calcular automáticamente basado en el plan seleccionado
+                        </label>
+                    </div>
+                    
+                    <p class="mt-1 text-sm text-gray-500" id="plan-info">
+                        Puedes elegir una fecha específica o usar el cálculo automático basado en la duración del plan.
+                    </p>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6">
+                    <a href="/alumnos" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+                        Cancelar
+                    </a>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center">
+                        <span class="material-icons mr-2">save</span>
+                        Guardar Alumno
+                    </button>
+                </div>
+            </form>
         </div>
     </main>
+
+    <!-- Script para calcular fecha de vencimiento -->
+    <script>
+        function calcularFechaVencimiento() {
+            const planSelect = document.getElementById('id_plan');
+            const fechaInput = document.getElementById('fecha_vencimiento_membresia');
+            const calculoAutomatico = document.getElementById('usar_calculo_automatico');
+            const planInfo = document.getElementById('plan-info');
+            
+            if (!calculoAutomatico.checked) {
+                planInfo.textContent = 'Fecha establecida manualmente. Desmarca la casilla para calcular automáticamente.';
+                planInfo.className = 'mt-1 text-sm text-blue-600';
+                return;
+            }
+            
+            if (planSelect.value) {
+                const selectedOption = planSelect.options[planSelect.selectedIndex];
+                const duracionDias = parseInt(selectedOption.getAttribute('data-duracion'));
+                
+                if (duracionDias) {
+                    const hoy = new Date();
+                    const fechaVencimiento = new Date(hoy);
+                    fechaVencimiento.setDate(hoy.getDate() + duracionDias);
+                    
+                    // Formatear fecha para input date (YYYY-MM-DD)
+                    const fechaFormateada = fechaVencimiento.toISOString().split('T')[0];
+                    fechaInput.value = fechaFormateada;
+                    
+                    // Mostrar información amigable
+                    const fechaAmigable = fechaVencimiento.toLocaleDateString('es-ES', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    planInfo.textContent = `La membresía vencerá el ${fechaAmigable} (${duracionDias} días desde hoy)`;
+                    planInfo.className = 'mt-1 text-sm text-green-600';
+                } else {
+                    fechaInput.value = '';
+                    planInfo.textContent = 'Error al calcular la fecha de vencimiento';
+                    planInfo.className = 'mt-1 text-sm text-red-600';
+                }
+            } else {
+                fechaInput.value = '';
+                planInfo.textContent = 'Selecciona un plan para calcular la fecha automáticamente.';
+                planInfo.className = 'mt-1 text-sm text-gray-500';
+            }
+        }
+
+        function toggleCalculoAutomatico() {
+            const calculoAutomatico = document.getElementById('usar_calculo_automatico');
+            const fechaInput = document.getElementById('fecha_vencimiento_membresia');
+            const planInfo = document.getElementById('plan-info');
+            
+            if (calculoAutomatico.checked) {
+                calcularFechaVencimiento();
+            } else {
+                planInfo.textContent = 'Selecciona la fecha de vencimiento manualmente.';
+                planInfo.className = 'mt-1 text-sm text-blue-600';
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculoAutomatico = document.getElementById('usar_calculo_automatico');
+            const planSelect = document.getElementById('id_plan');
+            
+            calculoAutomatico.addEventListener('change', toggleCalculoAutomatico);
+            planSelect.addEventListener('change', calcularFechaVencimiento);
+            
+            // Calcular fecha inicial si hay un plan seleccionado
+            calcularFechaVencimiento();
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-8">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm text-gray-600">
+                    © 2025 CDF Entrenamiento Elite. Todos los derechos reservados.
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                    Desarrollado por Alan Stefanov, Software Engineer.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

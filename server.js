@@ -32,9 +32,18 @@ app.use(flash());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Root redirect
+app.get('/', (req, res) => {
+    if (req.session.userId) {
+        res.redirect('/dashboard');
+    } else {
+        res.redirect('/login');
+    }
+});
+
 // Routes
 app.use('/', require('./routes/auth'));
-app.use('/', require('./routes/dashboard'));
+app.use('/dashboard', require('./routes/dashboard'));
 app.use('/alumnos', require('./routes/alumnos'));
 app.use('/planes', require('./routes/planes'));
 app.use('/colaboradores', require('./routes/colaboradores'));

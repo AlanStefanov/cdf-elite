@@ -1,4 +1,6 @@
-const { Plan, Alumno } = require('../models');
+
+const Plan = require('./Plan');
+const Alumno = require('./Alumno');
 
 // Define associations
 Plan.hasMany(Alumno, {

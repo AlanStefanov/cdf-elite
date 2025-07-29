@@ -5,305 +5,329 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .material-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        .material-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-white shadow-lg">
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="text-xl font-bold text-indigo-600">CDF Entrenamiento Elite</span>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="/dashboard" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
-                        </a>
-                        <a href="/alumnos" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Alumnos
-                        </a>
-                        <a href="/planes" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Planes
-                        </a>
-                        <a href="/colaboradores" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Colaboradores
-                        </a>
-                    </div>
-                </div>
                 <div class="flex items-center">
-                    <a href="/logout" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Cerrar Sesión
+                    <a href="/dashboard" class="text-white text-xl font-bold">
+                        <i class="fas fa-dumbbell mr-2"></i>
+                        CDF Entrenamiento Elite
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors font-semibold">
+                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                    </a>
+                    <a href="/alumnos" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-users mr-1"></i>Alumnos
+                    </a>
+                    <a href="/planes" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-clipboard-list mr-1"></i>Planes
+                    </a>
+                    <a href="/colaboradores" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-user-tie mr-1"></i>Colaboradores
+                    </a>
+                    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 rounded-lg bg-white">
-                <% if (locals.success) { %>
-                <div class="rounded-md bg-green-50 p-4 mb-4">
-                    <div class="text-sm text-green-700">
-                        <%= success %>
-                    </div>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+            <p class="mt-2 text-gray-600">Vista general del sistema CDF Entrenamiento Elite</p>
+        </div>
+
+        <!-- Flash Messages -->
+        <% if (messages.error && messages.error.length > 0) { %>
+            <div class="alert alert-error">
+                <span class="material-icons">error</span>
+                <%= messages.error[0] %>
+            </div>
+        <% } %>
+        <% if (messages.success && messages.success.length > 0) { %>
+            <div class="alert alert-success">
+                <span class="material-icons">check_circle</span>
+                <%= messages.success[0] %>
+            </div>
+        <% } %>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card">
+                <div class="stat-number"><%= stats.totalAlumnos %></div>
+                <div class="stat-label">Total Alumnos</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="stat-number"><%= stats.activos %></div>
+                <div class="stat-label">Membresías Activas</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="stat-number"><%= stats.totalPlanes %></div>
+                <div class="stat-label">Planes Disponibles</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <div class="stat-number"><%= stats.totalColaboradores %></div>
+                <div class="stat-label">Colaboradores</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="material-card p-6 text-center">
+                <div class="text-blue-600 mb-4">
+                    <i class="fas fa-user-plus text-4xl"></i>
                 </div>
-                <% } %>
-                <% if (locals.error) { %>
-                <div class="rounded-md bg-red-50 p-4 mb-4">
-                    <div class="text-sm text-red-700">
-                        <%= error %>
-                    </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Agregar Alumno</h3>
+                <p class="text-gray-600 mb-4">Registrar un nuevo alumno en el sistema</p>
+                <a href="/alumnos/add" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Agregar
+                </a>
+            </div>
+
+            <div class="material-card p-6 text-center">
+                <div class="text-green-600 mb-4">
+                    <i class="fas fa-clipboard-list text-4xl"></i>
                 </div>
-                <% } %>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Nuevo Plan</h3>
+                <p class="text-gray-600 mb-4">Crear un nuevo plan de entrenamiento</p>
+                <a href="/planes/add" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    Crear
+                </a>
+            </div>
 
-                <div class="max-w-7xl mx-auto py-8">
-                    <div class="text-center">
-                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Bienvenido al Dashboard</h1>
-                        <p class="text-xl text-gray-600 mb-8">Gestiona tu gimnasio de manera eficiente</p>
-                    </div>
+            <div class="material-card p-6 text-center">
+                <div class="text-purple-600 mb-4">
+                    <i class="fas fa-user-tie text-4xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Colaborador</h3>
+                <p class="text-gray-600 mb-4">Agregar un nuevo colaborador</p>
+                <a href="/colaboradores/add" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                    Agregar
+                </a>
+            </div>
+        </div>
 
-                    <!-- Statistics Section -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <!-- Active Members -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="ml-5 w-0 flex-1">
-                                        <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">
-                                                Miembros Activos
-                                            </dt>
-                                            <dd class="flex items-baseline">
-                                                <div class="text-2xl font-semibold text-gray-900">
-                                                    <%= locals.alumnosCount || 0 %>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Membresías por Vencer Section -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Membresías por Vencer</h2>
+            
+            <% if (stats.porVencer > 0) { %>
+            <div class="material-card p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="text-yellow-500 mr-4">
+                            <i class="fas fa-exclamation-triangle text-2xl"></i>
                         </div>
-
-                        <!-- Expired Members -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <svg class="h-6 w-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="ml-5 w-0 flex-1">
-                                        <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">
-                                                Miembros Vencidos
-                                            </dt>
-                                            <dd class="flex items-baseline">
-                                                <div class="text-2xl font-semibold text-gray-900">
-                                                    <%= locals.alumnosVencidos || 0 %>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Plans -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="ml-5 w-0 flex-1">
-                                        <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">
-                                                Planes Disponibles
-                                            </dt>
-                                            <dd class="flex items-baseline">
-                                                <div class="text-2xl font-semibold text-gray-900">
-                                                    <%= locals.planesCount || 0 %>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Staff -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                        </svg>
-                                    </div>
-                                    <div class="ml-5 w-0 flex-1">
-                                        <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">
-                                                Colaboradores
-                                            </dt>
-                                            <dd class="flex items-baseline">
-                                                <div class="text-2xl font-semibold text-gray-900">
-                                                    <%= locals.colaboradoresCount || 0 %>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">¡Atención!</h3>
+                            <p class="text-gray-600">
+                                Hay <%= stats.porVencer %> membresía(s) que vencen en los próximos 7 días.
+                            </p>
                         </div>
                     </div>
+                    <button onclick="notificarTodos()" 
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        Notificar a Todos
+                    </button>
+                </div>
 
-                    <!-- Charts Section -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                        <!-- Members by Plan -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-6">
-                                <h3 class="text-lg font-medium text-gray-900 mb-4">Miembros por Plan</h3>
-                                <canvas id="membersByPlanChart"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Members Status -->
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-6">
-                                <h3 class="text-lg font-medium text-gray-900 mb-4">Estado de Miembros</h3>
-                                <canvas id="membersStatusChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="mt-8">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Acciones Rápidas</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <a href="/alumnos/add" class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
-                                <div class="p-6">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                        </div>
-                                        <div class="ml-4">
-                                            <p class="text-lg font-medium text-gray-900">Nuevo Miembro</p>
-                                            <p class="mt-1 text-sm text-gray-500">Registrar un nuevo miembro</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="/planes/add" class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
-                                <div class="p-6">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </div>
-                                        <div class="ml-4">
-                                            <p class="text-lg font-medium text-gray-900">Nuevo Plan</p>
-                                            <p class="mt-1 text-sm text-gray-500">Crear un nuevo plan de membresía</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="/colaboradores/add" class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
-                                <div class="p-6">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                            </svg>
-                                        </div>
-                                        <div class="ml-4">
-                                            <p class="text-lg font-medium text-gray-900">Nuevo Colaborador</p>
-                                            <p class="mt-1 text-sm text-gray-500">Registrar un nuevo colaborador</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                <!-- Lista de membresías por vencer -->
+                <div class="mt-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Alumnos con membresías próximas a vencer:</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alumno</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha Vencimiento</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Días Restantes</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <% membresiasPorVencer.forEach(alumno => { 
+                                    const diasRestantes = Math.ceil((new Date(alumno.fecha_vencimiento_membresia) - new Date()) / (1000 * 60 * 60 * 24));
+                                    const colorClass = diasRestantes <= 3 ? 'text-red-600' : 'text-yellow-600';
+                                %>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900"><%= alumno.nombre %> <%= alumno.apellido %></div>
+                                        <div class="text-sm text-gray-500"><%= alumno.email %></div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <%= alumno.plan ? alumno.plan.nombre_plan : 'Sin plan' %>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm <%= colorClass %>">
+                                        <%= new Date(alumno.fecha_vencimiento_membresia).toLocaleDateString('es-ES') %>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm <%= colorClass %> font-semibold">
+                                        <%= diasRestantes %> días
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <%= alumno.telefono %>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <button onclick="notificarWhatsApp('<%= alumno.telefono %>', '<%= alumno.nombre %>', '<%= diasRestantes %>')" 
+                                                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs mr-2">
+                                            <i class="fab fa-whatsapp mr-1"></i>Notificar
+                                        </button>
+                                        <a href="/alumnos/edit/<%= alumno.id %>" 
+                                           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                                            Renovar
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+            <% } else { %>
+            <div class="material-card p-6">
+                <div class="flex items-center">
+                    <div class="text-green-500 mr-4">
+                        <i class="fas fa-check-circle text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">¡Excelente!</h3>
+                        <p class="text-gray-600">No hay membresías próximas a vencer en los próximos 7 días.</p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
         </div>
+
+        <!-- Script para notificaciones de WhatsApp -->
+        <script>
+            function notificarWhatsApp(telefono, nombre, diasRestantes) {
+                // Limpiar el número de teléfono (remover espacios, guiones, etc.)
+                const telefonoLimpio = telefono.replace(/\D/g, '');
+                
+                // Mensaje personalizado
+                let mensaje = `¡Hola ${nombre}! 👋\n\n`;
+                
+                if (diasRestantes <= 0) {
+                    mensaje += `Tu membresía en CDF Entrenamiento Elite ha vencido. ⚠️\n\n`;
+                } else if (diasRestantes <= 3) {
+                    mensaje += `Tu membresía en CDF Entrenamiento Elite vence en ${diasRestantes} día${diasRestantes === 1 ? '' : 's'}. ⚠️\n\n`;
+                } else {
+                    mensaje += `Tu membresía en CDF Entrenamiento Elite vence en ${diasRestantes} días. ⏰\n\n`;
+                }
+                
+                mensaje += `¡No te quedes sin entrenar! 💪\n`;
+                mensaje += `Contáctanos para renovar tu membresía.\n\n`;
+                mensaje += `📞 ¡Te esperamos!\n`;
+                mensaje += `CDF Entrenamiento Elite`;
+                
+                // Codificar el mensaje para URL
+                const mensajeCodificado = encodeURIComponent(mensaje);
+                
+                // Crear URL de WhatsApp
+                const urlWhatsApp = `https://wa.me/54${telefonoLimpio}?text=${mensajeCodificado}`;
+                
+                // Abrir WhatsApp en nueva ventana
+                window.open(urlWhatsApp, '_blank');
+            }
+
+            // Función para notificar a todos los que vencen pronto
+            function notificarTodos() {
+                const filas = document.querySelectorAll('tbody tr');
+                filas.forEach(fila => {
+                    const botonNotificar = fila.querySelector('button[onclick^="notificarWhatsApp"]');
+                    if (botonNotificar) {
+                        setTimeout(() => {
+                            botonNotificar.click();
+                        }, Math.random() * 2000); // Espaciar las notificaciones
+                    }
+                });
+            }
+        </script>
     </main>
 
-    <script>
-        // Members by Plan Chart
-        const membersByPlanCtx = document.getElementById('membersByPlanChart').getContext('2d');
-        const membersByPlanChart = new Chart(membersByPlanCtx, {
-            type: 'bar',
-            data: {
-                labels: <%= JSON.stringify(locals.planes || []) %>,
-                datasets: [{
-                    label: 'Número de Miembros',
-                    data: <%= JSON.stringify(locals.planCounts || []) %>,
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
-                        'rgba(255, 159, 64, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Members Status Chart
-        const membersStatusCtx = document.getElementById('membersStatusChart').getContext('2d');
-        const membersStatusChart = new Chart(membersStatusCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Activo', 'Vencido'],
-                datasets: [{
-                    data: [<%= locals.alumnosActivos || 0 %>, <%= locals.alumnosVencidos || 0 %>],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 99, 132, 0.5)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-    </script>
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-8">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm text-gray-600">
+                    © 2025 CDF Entrenamiento Elite. Todos los derechos reservados.
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                    Desarrollado por Alan Stefanov, Software Engineer.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

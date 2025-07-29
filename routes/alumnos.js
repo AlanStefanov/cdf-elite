@@ -5,7 +5,8 @@ const alumnosController = require('../controllers/alumnosController');
 
 // Alumnos routes
 router.get('/', isAuth, alumnosController.index);
-router.get('/api', isAuth, alumnosController.apiList);
+router.get('/api', isAuth, alumnosController.apiData);
+router.get('/api/data', isAuth, alumnosController.apiData);
 router.get('/add', isAuth, alumnosController.addForm);
 router.post('/add', isAuth, alumnosController.create);
 router.get('/edit/:id', isAuth, alumnosController.editForm);

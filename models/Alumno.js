@@ -40,7 +40,7 @@ const Alumno = sequelize.define('Alumno', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Planes',
+            model: 'Plans',
             key: 'id'
         }
     },
