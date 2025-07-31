@@ -1,7 +1,7 @@
-const sequelize = require('../config/database');
+
+const { sequelize } = require('../config/database');
 const { DataTypes } = require('sequelize');
 
-// Define models
 const Alumno = sequelize.define('Alumno', {
     id: {
         type: DataTypes.INTEGER,
@@ -24,10 +24,7 @@ const Alumno = sequelize.define('Alumno', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
+        unique: true
     },
     telefono: {
         type: DataTypes.STRING,
@@ -39,9 +36,9 @@ const Alumno = sequelize.define('Alumno', {
     },
     id_plan: {
         type: DataTypes.INTEGER,
-        allowNull: true, // Changed to true to make it optional
+        allowNull: false,
         references: {
-            model: 'Planes',
+            model: 'Plans',
             key: 'id'
         }
     },
@@ -50,20 +47,20 @@ const Alumno = sequelize.define('Alumno', {
         allowNull: false
     },
     estado_membresia: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'Pendiente'
+        type: DataTypes.ENUM('Activa', 'Vencida', 'Por vencer'),
+        defaultValue: 'Activa'
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+    membresia_pagada: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
-    updatedAt: {
+    fecha_pago: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        allowNull: true
     }
+}, {
+    tableName: 'Alumnos',
+    timestamps: true
 });
 
 const Plan = sequelize.define('Plan', {
@@ -74,31 +71,23 @@ const Plan = sequelize.define('Plan', {
     },
     nombre_plan: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     precio: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     descripcion: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        type: DataTypes.TEXT
     },
     duracion_dias: {
         type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    createdAt: {
-        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: 30
     }
+}, {
+    tableName: 'Plans',
+    timestamps: true
 });
 
 const Colaborador = sequelize.define('Colaborador', {
@@ -115,31 +104,35 @@ const Colaborador = sequelize.define('Colaborador', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    rol: {
+    dni: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            isEmail: true
-        }
+        unique: true
     },
     telefono: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+    posicion: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    updatedAt: {
+    salario: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false
+    },
+    fecha_inicio: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        allowNull: false
     }
+}, {
+    tableName: 'Colaboradors',
+    timestamps: true
 });
 
 const User = sequelize.define('User', {
@@ -157,12 +150,26 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    tableName: 'Users',
+    timestamps: true
 });
 
-// Export models
+// Define associations
+Plan.hasMany(Alumno, {
+    foreignKey: 'id_plan',
+    as: 'alumnos'
+});
+
+Alumno.belongsTo(Plan, {
+    foreignKey: 'id_plan',
+    as: 'plan'
+});
+
 module.exports = {
+    sequelize,
     Alumno,
-    Plan,
+    Plan, 
     Colaborador,
     User
 };

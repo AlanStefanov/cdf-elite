@@ -1,4 +1,5 @@
-const { Alumno, Plan } = require('../config/database');
+
+const { Alumno, Plan } = require('../models');
 const { Op } = require('sequelize');
 
 // Helper function to format date
@@ -15,54 +16,63 @@ const formatDate = (date) => {
 // Display list of all alumnos
 exports.index = async (req, res) => {
     try {
-        // Get monthly revenue
+        // Get monthly revenue and statistics
         const now = new Date();
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-        const [totalAlumnos, recaudacionMensual] = await Promise.all([
-            Alumno.findAll({
-                where: {
-                    estado_membresia: 'Activa'
-                },
-                include: [{
-                    model: Plan,
-                    as: 'plan',
-                    attributes: ['precio']
-                }]
-            }),
-            Alumno.findAll({
-                where: {
-                    membresia_pagada: true,
-                    fecha_pago: {
-                        [Op.between]: [startOfMonth, endOfMonth]
-                    }
-                },
-                include: [{
-                    model: Plan,
-                    as: 'plan',
-                    attributes: ['precio']
-                }]
-            })
-        ]);
+        // Get all active students with their plans
+        const alumnosActivos = await Alumno.findAll({
+            where: {
+                estado_membresia: 'Activa'
+            },
+            include: [{
+                model: Plan,
+                as: 'plan',
+                attributes: ['precio', 'nombre_plan']
+            }]
+        });
 
-        // Calculate monthly revenue
-        const totalRecaudado = recaudacionMensual.reduce((sum, alumno) => 
+        // Get students who paid this month
+        const alumnosPagadosMes = await Alumno.findAll({
+            where: {
+                membresia_pagada: true,
+                fecha_pago: {
+                    [Op.between]: [startOfMonth, endOfMonth]
+                }
+            },
+            include: [{
+                model: Plan,
+                as: 'plan',
+                attributes: ['precio']
+            }]
+        });
+
+        // Calculate monthly revenue (actually collected)
+        const recaudacionMensual = alumnosPagadosMes.reduce((sum, alumno) => 
             sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
         );
 
-        // Calculate potential monthly revenue from active memberships
-        const ingresosPotenciales = totalAlumnos.reduce((sum, alumno) => 
+        // Calculate potential monthly revenue from all active memberships
+        const ingresosPotenciales = alumnosActivos.reduce((sum, alumno) => 
             sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
         );
+
+        // Count paid vs total active memberships
+        const membresiasPagadas = alumnosPagadosMes.length;
+        const membresiasTotales = alumnosActivos.length;
 
         res.render('alumnos/index', {
             title: 'Alumnos - CDF Entrenamiento Elite',
             user: req.session.userId,
-            recaudacionMensual: totalRecaudado,
+            recaudacionMensual: recaudacionMensual,
             ingresosPotenciales: ingresosPotenciales,
-            membresiasPagadas: recaudacionMensual.length,
-            membresiasTotales: totalAlumnos.length
+            membresiasPagadas: membresiasPagadas,
+            membresiasTotales: membresiasTotales,
+            messages: {
+                success: req.flash('success'),
+                error: req.flash('error')
+            }
         });
     } catch (error) {
         console.error('Error rendering alumnos page:', error);
@@ -75,32 +85,31 @@ exports.index = async (req, res) => {
 exports.apiData = async (req, res) => {
     try {
         const alumnos = await Alumno.findAll({
+            include: [{
+                model: Plan,
+                as: 'plan',
+                attributes: ['nombre_plan']
+            }],
             order: [['createdAt', 'DESC']]
         });
 
-        // Manually get plan names
-        const planesMap = {};
-        const planes = await Plan.findAll();
-        planes.forEach(plan => {
-            planesMap[plan.id] = plan.nombre_plan;
-        });
-
-        // Add plan names to alumnos
-        const alumnosWithPlans = alumnos.map(alumno => {
+        // Format data for frontend
+        const alumnosFormatted = alumnos.map(alumno => {
             const alumnoData = alumno.toJSON();
-            alumnoData.plan_nombre = planesMap[alumno.id_plan] || 'Sin Plan';
-            return alumnoData;
+            return {
+                ...alumnoData,
+                plan: alumnoData.plan ? alumnoData.plan.nombre_plan : 'Sin Plan',
+                fecha_vencimiento_membresia: formatDate(alumnoData.fecha_vencimiento_membresia)
+            };
         });
 
-        console.log('Sending alumnos data:', alumnosWithPlans.length, 'alumnos');
-        res.json(alumnosWithPlans);
+        console.log('Sending alumnos data:', alumnosFormatted.length, 'alumnos');
+        res.json(alumnosFormatted);
     } catch (error) {
         console.error('Error fetching alumnos API data:', error);
         res.status(500).json([]);
     }
 };
-
-
 
 // Display add form
 exports.addForm = async (req, res) => {
@@ -113,8 +122,10 @@ exports.addForm = async (req, res) => {
             title: 'Agregar Alumno - CDF Entrenamiento Elite',
             user: req.session.userId,
             planes,
-            error: req.flash('error')[0],
-            success: req.flash('success')[0]
+            messages: {
+                error: req.flash('error'),
+                success: req.flash('success')
+            }
         });
     } catch (error) {
         console.error('Error fetching planes:', error);
@@ -126,11 +137,6 @@ exports.addForm = async (req, res) => {
 // Process add form
 exports.create = async (req, res) => {
     try {
-        // Validate date format
-        const fechaPago = req.body.fecha_pago ? new Date(req.body.fecha_pago) : null;
-        if (fechaPago && isNaN(fechaPago.getTime())) {
-            throw new Error('Formato de fecha inválido');
-        }
         const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan, fecha_vencimiento_membresia } = req.body;
 
         // Validate required fields
@@ -176,7 +182,9 @@ exports.create = async (req, res) => {
             fecha_nacimiento,
             id_plan,
             fecha_vencimiento_membresia: fechaVencimiento,
-            estado_membresia: 'Activa'
+            estado_membresia: 'Activa',
+            membresia_pagada: true,
+            fecha_pago: new Date()
         });
 
         req.flash('success', 'Alumno agregado exitosamente');
@@ -205,51 +213,57 @@ exports.editForm = async (req, res) => {
         });
 
         if (!alumno) {
-            throw new Error('Alumno no encontrado');
+            req.flash('error', 'Alumno no encontrado');
+            return res.redirect('/alumnos');
         }
 
         const planes = await Plan.findAll();
         res.render('alumnos/edit', {
             title: 'Editar Alumno - CDF Entrenamiento Elite',
+            user: req.session.userId,
             alumno,
-            planes
+            planes,
+            messages: {
+                error: req.flash('error'),
+                success: req.flash('success')
+            }
         });
     } catch (error) {
         console.error('Error fetching alumno:', error);
-        res.status(500).json({ error: 'Error al cargar el alumno' });
+        req.flash('error', 'Error al cargar el alumno');
+        res.redirect('/alumnos');
     }
 };
 
 // Process edit form
 exports.update = async (req, res) => {
     try {
-        // Validate date format
-        const fechaPago = req.body.fecha_pago ? new Date(req.body.fecha_pago) : null;
-        if (fechaPago && isNaN(fechaPago.getTime())) {
-            throw new Error('Formato de fecha inválido');
-        }
         const { id } = req.params;
         const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan } = req.body;
 
         const alumno = await Alumno.findByPk(id);
         if (!alumno) {
-            throw new Error('Alumno no encontrado');
+            req.flash('error', 'Alumno no encontrado');
+            return res.redirect('/alumnos');
         }
 
         const plan = await Plan.findByPk(id_plan);
         if (!plan) {
-            throw new Error('Plan no encontrado');
+            req.flash('error', 'Plan no encontrado');
+            return res.redirect('/alumnos');
         }
 
         // Validate required fields
         if (!nombre || !apellido || !dni || !email || !telefono || !fecha_nacimiento) {
-            throw new Error('Todos los campos son requeridos');
+            req.flash('error', 'Todos los campos son requeridos');
+            return res.redirect('/alumnos/edit/' + id);
         }
 
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            throw new Error('Formato de email inválido');
+            req.flash('error', 'Formato de email inválido');
+            return res.redirect('/alumnos/edit/' + id);
         }
 
         // Update membership expiration if plan changed
@@ -287,7 +301,8 @@ exports.delete = async (req, res) => {
         const alumno = await Alumno.findByPk(id);
 
         if (!alumno) {
-            throw new Error('Alumno no encontrado');
+            req.flash('error', 'Alumno no encontrado');
+            return res.redirect('/alumnos');
         }
 
         await alumno.destroy();

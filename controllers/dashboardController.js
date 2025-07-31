@@ -1,4 +1,5 @@
-const { Alumno, Plan, Colaborador } = require('../config/database');
+
+const { Alumno, Plan, Colaborador } = require('../models');
 const { Op } = require('sequelize');
 
 exports.index = async (req, res) => {
