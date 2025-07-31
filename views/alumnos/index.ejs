@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/design-system.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -95,26 +94,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Design System - Money Visibility */
-        .money-hidden {
-            filter: blur(8px);
-            transition: filter 0.3s ease;
-        }
-
-        .money-visible {
-            filter: none;
-            transition: filter 0.3s ease;
-        }
-
-        .eye-toggle {
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .eye-toggle:hover {
-            color: #374151;
-        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -177,12 +156,13 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Recaudado este mes</dt>
                                     <dd class="text-lg font-medium text-gray-900">
-                                        <span id="amount-recaudacion" class="money-hidden">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="amount-recaudacion" style="display: none;">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-recaudacion">$ ***</span>
                                     </dd>
                                 </dl>
                             </div>
                         </div>
-                        <button onclick="toggleMoney('recaudacion')" class="eye-toggle text-gray-500">
+                        <button onclick="toggleMoney('recaudacion')" class="text-gray-500 hover:text-gray-700 transition-colors">
                             <i id="eye-recaudacion" class="fas fa-eye-slash text-lg"></i>
                         </button>
                     </div>
@@ -203,12 +183,13 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Ingresos Potenciales</dt>
                                     <dd class="text-lg font-medium text-gray-900">
-                                        <span id="amount-potenciales" class="money-hidden">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="amount-potenciales" style="display: none;">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-potenciales">$ ***</span>
                                     </dd>
                                 </dl>
                             </div>
                         </div>
-                        <button onclick="toggleMoney('potenciales')" class="eye-toggle text-gray-500">
+                        <button onclick="toggleMoney('potenciales')" class="text-gray-500 hover:text-gray-700 transition-colors">
                             <i id="eye-potenciales" class="fas fa-eye-slash text-lg"></i>
                         </button>
                     </div>
@@ -305,25 +286,6 @@
     </main>
 
     <script>
-        let revenueVisible = false;
-
-        // Design System - Money Toggle Function
-        function toggleMoney(type) {
-            const amountElement = document.getElementById(`amount-${type}`);
-            const eyeIcon = document.getElementById(`eye-${type}`);
-
-            if (amountElement.classList.contains('money-hidden')) {
-                // Mostrar dinero
-                amountElement.classList.remove('money-hidden');
-                amountElement.classList.add('money-visible');
-                eyeIcon.className = 'fas fa-eye text-lg';
-            } else {
-                // Ocultar dinero
-                amountElement.classList.remove('money-visible');
-                amountElement.classList.add('money-hidden');
-                eyeIcon.className = 'fas fa-eye-slash text-lg';
-            }
-        }
         // Load students data
         function loadStudents() {
             fetch('/alumnos/api')
@@ -435,7 +397,23 @@
         }
 
         // Función para alternar mostrar/ocultar dinero
+        function toggleMoney(type) {
+            const amountElement = document.getElementById(`amount-${type}`);
+            const hiddenElement = document.getElementById(`hidden-${type}`);
+            const eyeIcon = document.getElementById(`eye-${type}`);
 
+            if (amountElement.style.display === 'none') {
+                // Mostrar dinero
+                amountElement.style.display = 'inline';
+                hiddenElement.style.display = 'none';
+                eyeIcon.className = 'fas fa-eye text-lg';
+            } else {
+                // Ocultar dinero
+                amountElement.style.display = 'none';
+                hiddenElement.style.display = 'inline';
+                eyeIcon.className = 'fas fa-eye-slash text-lg';
+            }
+        }
 
         // Load data when page loads
         document.addEventListener('DOMContentLoaded', function() {
