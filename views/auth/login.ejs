@@ -1,121 +1,219 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/css/output.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Iniciar Sesión - CDF Elite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .login-button:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: #d1d5db;
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 3px solid #dc2626;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 1.125rem;
+            text-decoration: none;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 640px) {
+            .login-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col">
-    <!-- Header CDF -->
-    <header class="cdf-header">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center items-center h-16">
-                <a href="#" class="cdf-logo">
-                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" class="h-12 w-auto">
-                    <span class="cdf-logo-text">Entrenamiento Elite</span>
-                </a>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-container">
+                <img src="/images/cdf-logo-new.png" alt="CDF Elite Logo" class="logo">
             </div>
-        </div>
-    </header>
+            
+            <h1 class="login-title">Bienvenido</h1>
+            <p class="login-subtitle">Accede a tu cuenta de CDF</p>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <!-- Logo y título -->
-            <div class="text-center">
-                <div class="flex justify-center mb-8">
-                    <div class="bg-white p-6 rounded-full shadow-lg">
-                        <img src="/images/cdf-logo-new.png" alt="CDF Logo" class="h-16 w-auto">
-                    </div>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="error-message">
+                    <%= error %>
                 </div>
-                <h2 class="text-4xl font-bold text-gray-900 mb-2">Bienvenido</h2>
-                <p class="text-lg text-gray-600">Accede a tu cuenta de CDF</p>
-            </div>
+            <% } %>
 
-            <!-- Formulario de login -->
-            <div class="material-card p-8">
-                <!-- Flash Messages -->
-                <% if (typeof error !== 'undefined' && error) { %>
-                    <div class="alert alert-error">
-                        <span class="material-icons text-red-500">error</span>
-                        <%= error %>
-                    </div>
-                <% } %>
-                <% if (typeof success !== 'undefined' && success) { %>
-                    <div class="alert alert-success">
-                        <span class="material-icons text-green-500">check_circle</span>
-                        <%= success %>
-                    </div>
-                <% } %>
-
-                <form action="/login" method="POST" class="space-y-6">
-                    <div class="space-y-2">
-                        <label for="username" class="block text-sm font-semibold text-gray-700">
-                            <span class="material-icons inline-block text-lg mr-2 align-middle">person</span>
-                            Usuario
-                        </label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            required 
-                            class="cdf-input"
-                            placeholder="Ingresa tu usuario"
-                            autocomplete="username"
-                        >
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="password" class="block text-sm font-semibold text-gray-700">
-                            <span class="material-icons inline-block text-lg mr-2 align-middle">lock</span>
-                            Contraseña
-                        </label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            required 
-                            class="cdf-input"
-                            placeholder="Ingresa tu contraseña"
-                            autocomplete="current-password"
-                        >
-                    </div>
-
-                    <div class="pt-4">
-                        <button type="submit" class="material-button w-full flex items-center justify-center gap-2">
-                            <span class="material-icons">login</span>
-                            INGRESAR AL SISTEMA
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Info adicional -->
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                    <p class="text-center text-sm text-gray-500">
-                        <span class="material-icons inline-block text-sm mr-1 align-middle">security</span>
-                        Acceso seguro al sistema CDF
-                    </p>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input"
+                        placeholder="Ingresa tu usuario"
+                        required
+                    >
                 </div>
-            </div>
-        </div>
-    </main>
 
-    <!-- Footer CDF -->
-    <footer class="cdf-footer">
-        <div class="cdf-footer-content">
-            <div class="cdf-footer-left">
-                © 2025 CDF Entrenamiento Elite
-            </div>
-            <div class="flex justify-center">
-                <a href="#" class="cdf-footer-logo">
-                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" class="h-8 w-auto">
-                </a>
-            </div>
-            <div class="cdf-footer-right">
-                Desarrollado por Alan Stefanov
-            </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input"
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    INGRESAR AL SISTEMA
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">© 2025 CDF Entrenamiento Elite</div>
+            <a href="#" class="footer-logo">CDF Logo</a>
+            <div class="footer-text">Desarrollado por Alan Stefanov</div>
         </div>
     </footer>
 </body>
