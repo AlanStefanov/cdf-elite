@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/design-system.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -63,23 +64,23 @@
             border: 1px solid #bbf7d0;
             color: #16a34a;
         }
-        
+
         /* Design System - Money Visibility */
         .money-hidden {
             filter: blur(8px);
             transition: filter 0.3s ease;
         }
-        
+
         .money-visible {
             filter: none;
             transition: filter 0.3s ease;
         }
-        
+
         .eye-toggle {
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        
+
         .eye-toggle:hover {
             color: #e2e8f0;
         }
@@ -218,8 +219,9 @@
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Agregar Alumno</h3>
                 <p class="text-gray-600 mb-4">Registrar un nuevo alumno en el sistema</p>
-                <a href="/alumnos/add" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    Agregar
+                <a href="/alumnos/add" class="cdf-btn cdf-btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Agregar Alumno
                 </a>
             </div>
 
