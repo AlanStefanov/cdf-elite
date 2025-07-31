@@ -78,31 +78,36 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="gradient-bg shadow-lg">
+    <!-- Navigation CDF -->
+    <nav class="cdf-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="/dashboard" class="text-white text-xl font-bold">
-                        <i class="fas fa-dumbbell mr-2"></i>
-                        CDF Entrenamiento Elite
+                    <a href="/dashboard" class="cdf-logo">
+                        <img src="/images/cdf-logo-new.png" alt="CDF Logo" style="height: 35px; width: auto; margin-right: 8px;">
                     </a>
+                    <span class="ml-2 text-sm text-gray-300">Entrenamiento Elite</span>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors font-semibold">
-                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-300 mx-2">|</span>
+                    <a href="/dashboard" class="cdf-nav-item">
+                        <i class="fas fa-chart-bar"></i>
+                        Dashboard
                     </a>
-                    <a href="/alumnos" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-users mr-1"></i>Alumnos
+                    <a href="/alumnos" class="cdf-nav-item">
+                        <i class="fas fa-users"></i>
+                        Alumnos
                     </a>
-                    <a href="/planes" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-clipboard-list mr-1"></i>Planes
+                    <a href="/planes" class="cdf-nav-item active">
+                        <i class="fas fa-clipboard-list"></i>
+                        Planes
                     </a>
-                    <a href="/colaboradores" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-user-tie mr-1"></i>Colaboradores
+                    <a href="/colaboradores" class="cdf-nav-item">
+                        <i class="fas fa-user-tie"></i>
+                        Colaboradores
                     </a>
-                    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
-                        <i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión
+                    <a href="/logout" class="cdf-btn cdf-btn-primary cdf-btn-sm">
+                        Cerrar sesión
                     </a>
                 </div>
             </div>
