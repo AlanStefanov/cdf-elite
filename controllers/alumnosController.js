@@ -79,11 +79,11 @@ exports.apiData = async (req, res) => {
         const formattedAlumnos = alumnos.map(alumno => {
             const now = new Date();
             const vencimiento = new Date(alumno.fecha_vencimiento_membresia);
-            let estado = 'Activa';
-
-            if (vencimiento < now) {
-                estado = 'Vencida';
-            } else if (vencimiento <= new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000))) {
+            
+            // Usar el estado de la base de datos, pero verificar si está por vencer
+            let estado = alumno.estado_membresia;
+            
+            if (estado === 'Activa' && vencimiento <= new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000))) {
                 estado = 'Por vencer';
             }
 
