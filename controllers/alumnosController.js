@@ -75,46 +75,25 @@ exports.index = async (req, res) => {
 exports.apiData = async (req, res) => {
     try {
         const alumnos = await Alumno.findAll({
-            include: [{
-                model: Plan,
-                as: 'plan',
-                attributes: ['nombre_plan']
-            }],
             order: [['createdAt', 'DESC']]
         });
 
-        // Format data for DataGrid and add membership status
-        const formattedAlumnos = alumnos.map(alumno => {
-            const now = new Date();
-            const vencimiento = new Date(alumno.fecha_vencimiento_membresia);
-            
-            // Usar el estado de la base de datos, pero verificar si está por vencer
-            let estado = alumno.estado_membresia;
-            
-            if (estado === 'Activa' && vencimiento <= new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000))) {
-                estado = 'Por vencer';
-            }
-
-            return {
-                id: alumno.id,
-                nombre: alumno.nombre,
-                apellido: alumno.apellido,
-                dni: alumno.dni,
-                email: alumno.email,
-                telefono: alumno.telefono,
-                fecha_nacimiento: formatDate(alumno.fecha_nacimiento),
-                plan: alumno.plan ? alumno.plan.nombre_plan : 'Sin plan',
-                fecha_vencimiento_membresia: formatDate(alumno.fecha_vencimiento_membresia),
-                estado_membresia: estado,
-                membresia_pagada: alumno.membresia_pagada,
-                fecha_pago: formatDate(alumno.fecha_pago),
-                direccion: alumno.direccion,
-                observaciones: alumno.observaciones
-            };
+        // Manually get plan names
+        const planesMap = {};
+        const planes = await Plan.findAll();
+        planes.forEach(plan => {
+            planesMap[plan.id] = plan.nombre_plan;
         });
 
-        console.log('Sending alumnos data:', formattedAlumnos.length, 'alumnos');
-        res.json(formattedAlumnos);
+        // Add plan names to alumnos
+        const alumnosWithPlans = alumnos.map(alumno => {
+            const alumnoData = alumno.toJSON();
+            alumnoData.plan_nombre = planesMap[alumno.id_plan] || 'Sin Plan';
+            return alumnoData;
+        });
+
+        console.log('Sending alumnos data:', alumnosWithPlans.length, 'alumnos');
+        res.json(alumnosWithPlans);
     } catch (error) {
         console.error('Error fetching alumnos API data:', error);
         res.status(500).json([]);
@@ -129,7 +108,7 @@ exports.addForm = async (req, res) => {
         const planes = await Plan.findAll({
             order: [['nombre_plan', 'ASC']]
         });
-        
+
         res.render('alumnos/add', {
             title: 'Agregar Alumno - CDF Entrenamiento Elite',
             user: req.session.userId,

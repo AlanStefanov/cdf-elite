@@ -1,4 +1,3 @@
-
 /* ===== CDF DESIGN SYSTEM ===== */
 
 /* Botones CDF */
@@ -74,26 +73,26 @@
   --cdf-primary: #dc2626; /* Rojo CDF */
   --cdf-primary-hover: #b91c1c;
   --cdf-primary-dark: #991b1b;
-  
+
   --cdf-secondary: #6b7280; /* Gris */
   --cdf-secondary-hover: #4b5563;
   --cdf-secondary-light: #9ca3af;
-  
+
   --cdf-dark: #1a1a1a; /* Negro CDF */
   --cdf-dark-hover: #000000;
-  
+
   --cdf-light: #f9fafb; /* Blanco/Gris claro */
   --cdf-light-hover: #f3f4f6;
-  
+
   /* Estados */
   --cdf-disabled: #d1d5db;
   --cdf-disabled-text: #9ca3af;
-  
+
   /* Sombras */
   --cdf-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --cdf-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --cdf-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  
+
   /* Bordes */
   --cdf-radius: 0.5rem;
   --cdf-radius-sm: 0.25rem;
@@ -249,7 +248,7 @@
     grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
   .cdf-footer-right {
     text-align: center;
   }
@@ -336,7 +335,7 @@
   white-space: nowrap;
   user-select: none;
   outline: none;
-  
+
   /* Estados de focus */
   focus:outline-none;
   focus:ring-2;
@@ -617,14 +616,52 @@
     padding: 0.625rem 1.25rem;
     font-size: 0.8rem;
   }
-  
+
   .cdf-btn-lg {
     padding: 0.875rem 1.75rem;
     font-size: 0.9rem;
   }
-  
+
   .cdf-btn-sm {
     padding: 0.375rem 0.875rem;
     font-size: 0.7rem;
   }
+}
+
+.stat-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.stat-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    margin-top: 8px;
 }

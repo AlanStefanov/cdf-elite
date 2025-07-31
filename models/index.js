@@ -115,37 +115,19 @@ const Colaborador = sequelize.define('Colaborador', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    dni: {
+    rol: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
         validate: {
             isEmail: true
         }
     },
     telefono: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    fecha_nacimiento: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    fecha_contratacion: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    rol: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    salario: {
-        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     createdAt: {
