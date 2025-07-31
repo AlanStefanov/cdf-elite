@@ -4,14 +4,20 @@ const sequelize = new Sequelize({
     storage: './database.sqlite'
 });
 
-// Export the instance of Sequelize
-module.exports = sequelize;
-
 // Import models
-const Alumno = require('../models/Alumno');
-const Plan = require('../models/Plan');
-const Colaborador = require('../models/Colaborador');
-const User = require('../models/User');
+const Alumno = require('../models/Alumno')(sequelize);
+const Plan = require('../models/Plan')(sequelize);
+const Colaborador = require('../models/Colaborador')(sequelize);
+const User = require('../models/User')(sequelize);
 
 // Initialize associations
-require('../models/associations');
+require('../models/associations')(sequelize, { Alumno, Plan, Colaborador, User });
+
+// Export models and sequelize instance
+module.exports = {
+    sequelize,
+    Alumno,
+    Plan,
+    Colaborador,
+    User
+};

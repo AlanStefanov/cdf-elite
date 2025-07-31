@@ -1,4 +1,4 @@
-const Plan = require('../models/Plan');
+const { Plan } = require('../config/database');
 
 // Display list of all planes
 exports.index = async (req, res) => {

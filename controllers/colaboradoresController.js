@@ -1,4 +1,4 @@
-const Colaborador = require('../models/Colaborador');
+const { Colaborador } = require('../config/database');
 
 // Display list of all colaboradores
 exports.index = async (req, res) => {

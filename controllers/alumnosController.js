@@ -1,5 +1,4 @@
-const Alumno = require('../models/Alumno');
-const Plan = require('../models/Plan');
+const { Alumno, Plan } = require('../config/database');
 
 // Helper function to format date
 const formatDate = (date) => {
@@ -15,9 +14,46 @@ const formatDate = (date) => {
 // Display list of all alumnos
 exports.index = async (req, res) => {
     try {
+        // Get monthly revenue
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+        const [totalAlumnos, recaudacionMensual] = await Promise.all([
+            Alumno.findAll({
+                where: {
+                    estado_membresia: 'Activa'
+                },
+                include: [{
+                    model: Plan,
+                    as: 'plan',
+                    attributes: ['precio']
+                }]
+            }),
+            Alumno.findAll({
+                where: {
+                    membresia_pagada: true,
+                    fecha_pago: {
+                        [Op.between]: [startOfMonth, endOfMonth]
+                    }
+                },
+                include: [{
+                    model: Plan,
+                    as: 'plan',
+                    attributes: ['precio']
+                }]
+            })
+        ]);
+
+        // Calculate monthly revenue
+        const totalRecaudado = recaudacionMensual.reduce((sum, alumno) => 
+            sum + (alumno.plan ? alumno.plan.precio : 0), 0
+        );
+
         res.render('alumnos/index', {
             title: 'Alumnos - CDF Entrenamiento Elite',
-            user: req.session.userId
+            user: req.session.userId,
+            recaudacionMensual: totalRecaudado
         });
     } catch (error) {
         console.error('Error rendering alumnos page:', error);
@@ -60,7 +96,11 @@ exports.apiData = async (req, res) => {
                 fecha_nacimiento: formatDate(alumno.fecha_nacimiento),
                 plan: alumno.plan ? alumno.plan.nombre_plan : 'Sin plan',
                 fecha_vencimiento_membresia: formatDate(alumno.fecha_vencimiento_membresia),
-                estado_membresia: estado
+                estado_membresia: estado,
+                membresia_pagada: alumno.membresia_pagada,
+                fecha_pago: formatDate(alumno.fecha_pago),
+                direccion: alumno.direccion,
+                observaciones: alumno.observaciones
             };
         });
 
@@ -98,6 +138,11 @@ exports.addForm = async (req, res) => {
 // Process add form
 exports.create = async (req, res) => {
     try {
+        // Validate date format
+        const fechaPago = req.body.fecha_pago ? new Date(req.body.fecha_pago) : null;
+        if (fechaPago && isNaN(fechaPago.getTime())) {
+            throw new Error('Formato de fecha inválido');
+        }
         const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan, fecha_vencimiento_membresia } = req.body;
 
         // Validate required fields
@@ -190,6 +235,11 @@ exports.editForm = async (req, res) => {
 // Process edit form
 exports.update = async (req, res) => {
     try {
+        // Validate date format
+        const fechaPago = req.body.fecha_pago ? new Date(req.body.fecha_pago) : null;
+        if (fechaPago && isNaN(fechaPago.getTime())) {
+            throw new Error('Formato de fecha inválido');
+        }
         const { id } = req.params;
         const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan } = req.body;
 

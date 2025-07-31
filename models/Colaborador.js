@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
 
-const Colaborador = sequelize.define('Colaborador', {
+module.exports = (sequelize) => {
+    const Colaborador = sequelize.define('Colaborador', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -33,4 +33,5 @@ const Colaborador = sequelize.define('Colaborador', {
     }
 });
 
-module.exports = Colaborador;
+    return Colaborador;
+};

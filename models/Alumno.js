@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
 
-const Alumno = sequelize.define('Alumno', {
+module.exports = (sequelize) => {
+    const Alumno = sequelize.define('Alumno', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -48,6 +48,23 @@ const Alumno = sequelize.define('Alumno', {
         type: DataTypes.DATE,
         allowNull: false
     },
+    direccion: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    observaciones: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    membresia_pagada: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    fecha_pago: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
     estado_membresia: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -65,4 +82,5 @@ const Alumno = sequelize.define('Alumno', {
     }
 });
 
-module.exports = Alumno;
+    return Alumno;
+};
