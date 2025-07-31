@@ -168,6 +168,21 @@
                 </div>
                 <div class="stat-label">Recaudación Mensual</div>
             </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-white">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <button onclick="toggleMoney('potencial')" class="text-white hover:text-gray-200 transition-colors">
+                        <i id="eye-potencial" class="fas fa-eye-slash text-lg"></i>
+                    </button>
+                </div>
+                <div class="stat-number">
+                    <span id="amount-potencial" style="display: none;">$<%= stats.ingresosPotenciales.toLocaleString('es-AR') %></span>
+                    <span id="hidden-potencial">$ ***</span>
+                </div>
+                <div class="stat-label">Ingresos Potenciales</div>
+            </div>
             <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
                 <div class="flex justify-between items-start mb-4">
                     <div class="text-white">
