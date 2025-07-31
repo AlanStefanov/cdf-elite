@@ -87,31 +87,35 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="gradient-bg shadow-lg">
+    <!-- Navigation CDF -->
+    <nav class="cdf-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="/dashboard" class="text-white text-xl font-bold">
+                    <a href="/dashboard" class="cdf-logo">
                         <i class="fas fa-dumbbell mr-2"></i>
-                        CDF Entrenamiento Elite
+                        CDF
                     </a>
+                    <span class="ml-2 text-sm text-gray-300">Entrenamiento Elite</span>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors font-semibold">
-                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                <div class="flex items-center space-x-2">
+                    <span class="material-icons text-white mr-4">database</span>
+                    <span class="text-white text-sm mr-4">DB</span>
+                    <span class="text-gray-300 mx-2">|</span>
+                    <a href="/alumnos" class="cdf-nav-item">
+                        <span class="material-icons">people</span>
+                        Alumnos
                     </a>
-                    <a href="/alumnos" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-users mr-1"></i>Alumnos
+                    <a href="/planes" class="cdf-nav-item">
+                        <span class="material-icons">assignment</span>
+                        Planes
                     </a>
-                    <a href="/planes" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-clipboard-list mr-1"></i>Planes
+                    <a href="/colaboradores" class="cdf-nav-item">
+                        <span class="material-icons">business_center</span>
+                        Colaboradores
                     </a>
-                    <a href="/colaboradores" class="text-white hover:text-gray-200 transition-colors">
-                        <i class="fas fa-user-tie mr-1"></i>Colaboradores
-                    </a>
-                    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
-                        <i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión
+                    <a href="/logout" class="cdf-btn cdf-btn-primary cdf-btn-sm">
+                        Cerrar sesión
                     </a>
                 </div>
             </div>
@@ -219,10 +223,10 @@
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Agregar Alumno</h3>
                 <p class="text-gray-600 mb-4">Registrar un nuevo alumno en el sistema</p>
-                <a href="/alumnos/add" class="cdf-btn cdf-btn-primary">
+                <button class="cdf-btn cdf-btn-primary" onclick="window.location.href='/alumnos/add'">
                     <i class="fas fa-plus"></i>
                     Agregar Alumno
-                </a>
+                </button>
             </div>
 
             <div class="material-card p-6 text-center">
@@ -231,9 +235,9 @@
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Nuevo Plan</h3>
                 <p class="text-gray-600 mb-4">Crear un nuevo plan de entrenamiento</p>
-                <a href="/planes/add" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                <button class="cdf-btn cdf-btn-secondary" onclick="window.location.href='/planes/add'">
                     Crear
-                </a>
+                </button>
             </div>
 
             <div class="material-card p-6 text-center">
@@ -242,9 +246,9 @@
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Colaborador</h3>
                 <p class="text-gray-600 mb-4">Agregar un nuevo colaborador</p>
-                <a href="/colaboradores/add" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                <button class="cdf-btn cdf-btn-coral" onclick="window.location.href='/colaboradores/add'">
                     Agregar
-                </a>
+                </button>
             </div>
         </div>
 
@@ -407,16 +411,20 @@
         </script>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t mt-8">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <!-- Footer CDF -->
+    <footer class="cdf-footer">
+        <div class="cdf-footer-content">
+            <div class="cdf-footer-left">
+                Desarrollado por Alana Stefanov, Software Engineer
+            </div>
             <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    © 2025 CDF Entrenamiento Elite. Todos los derechos reservados.
-                </p>
-                <p class="text-sm text-gray-500 mt-1">
-                    Desarrollado por Alan Stefanov, Software Engineer.
-                </p>
+                <a href="/dashboard" class="cdf-footer-logo">
+                    <i class="fas fa-dumbbell mr-2"></i>
+                    CDF
+                </a>
+            </div>
+            <div class="cdf-footer-right">
+                @2025 CDF Entrenamiento Elite. Todos los derechos reservados
             </div>
         </div>
     </footer>

@@ -1,9 +1,9 @@
 
 /* ===== CDF DESIGN SYSTEM ===== */
 
-/* Variables de colores */
+/* Variables de colores CDF */
 :root {
-  /* Colores principales */
+  /* Colores principales CDF */
   --cdf-primary: #dc2626; /* Rojo CDF */
   --cdf-primary-hover: #b91c1c;
   --cdf-primary-dark: #991b1b;
@@ -12,8 +12,8 @@
   --cdf-secondary-hover: #4b5563;
   --cdf-secondary-light: #9ca3af;
   
-  --cdf-dark: #1f2937; /* Negro/Gris oscuro */
-  --cdf-dark-hover: #111827;
+  --cdf-dark: #1a1a1a; /* Negro CDF */
+  --cdf-dark-hover: #000000;
   
   --cdf-light: #f9fafb; /* Blanco/Gris claro */
   --cdf-light-hover: #f3f4f6;
@@ -31,6 +31,84 @@
   --cdf-radius: 0.5rem;
   --cdf-radius-sm: 0.25rem;
   --cdf-radius-lg: 0.75rem;
+}
+
+/* ===== HEADER CDF ===== */
+.cdf-header {
+  background-color: var(--cdf-dark);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cdf-header .cdf-logo {
+  color: var(--cdf-primary);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.cdf-header .cdf-nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--cdf-radius);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cdf-header .cdf-nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.cdf-header .cdf-nav-item.active {
+  background-color: var(--cdf-primary);
+  color: white;
+}
+
+/* ===== FOOTER CDF ===== */
+.cdf-footer {
+  background-color: var(--cdf-dark);
+  color: white;
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.cdf-footer .cdf-footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cdf-footer .cdf-footer-left {
+  color: #e2e8f0;
+  font-size: 0.875rem;
+}
+
+.cdf-footer .cdf-footer-logo {
+  color: var(--cdf-primary);
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.cdf-footer .cdf-footer-right {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .cdf-footer .cdf-footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
 }
 
 /* ===== BOTONES BASE ===== */
