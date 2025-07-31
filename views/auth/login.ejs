@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CDF Entrenamiento Elite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/design-system.css">
     <style>
         * {
             margin: 0;
@@ -14,9 +13,9 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -26,20 +25,18 @@
 
         .login-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             width: 100%;
             text-align: center;
         }
@@ -52,25 +49,21 @@
         }
 
         .logo {
-            height: 80px;
+            height: 60px;
             width: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .login-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1a1a1a;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
-            letter-spacing: -0.025em;
         }
 
         .login-subtitle {
-            font-size: 1rem;
-            color: #6b7280;
-            margin-bottom: 2.5rem;
-            font-weight: 400;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
         }
 
         .form-group {
@@ -80,69 +73,54 @@
 
         .form-label {
             display: block;
-            font-weight: 600;
-            color: #374151;
+            font-weight: 500;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .form-input {
             width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 0.875rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
-            background-color: #f9fafb;
-            color: #111827;
+            background-color: #f8f9fa;
+            color: #2c3e50;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #dc2626;
             background-color: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-1px);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
         }
 
-        .input-icon {
-            position: relative;
-        }
-
-        .input-icon i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-            z-index: 2;
-        }
-
-        .input-icon .form-input {
-            padding-left: 3rem;
+        .form-input::placeholder {
+            color: #95a5a6;
         }
 
         .login-button {
             width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #dc2626;
             color: white;
             border: none;
-            padding: 1.25rem 2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 1rem;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
         }
 
         .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            background-color: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
         .login-button:active {
@@ -150,97 +128,84 @@
         }
 
         .alert {
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .alert-error {
-            background-color: #fef2f2;
+            background-color: #fee2e2;
             border: 1px solid #fecaca;
             color: #dc2626;
         }
 
         .alert-success {
-            background-color: #f0fdf4;
+            background-color: #dcfce7;
             border: 1px solid #bbf7d0;
             color: #16a34a;
         }
 
         .footer {
+            width: 100%;
+            max-width: 1200px;
             margin-top: 3rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-        }
-
-        .footer-content {
+            padding: 1.5rem 2rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .footer-logo img {
-            height: 32px;
-            width: auto;
-            border-radius: 6px;
-        }
-
-        .footer-text {
+        .footer-left {
             font-weight: 500;
         }
 
-        @media (max-width: 640px) {
-            .login-container {
-                padding: 1rem;
-                gap: 2rem;
-            }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #dc2626;
+            font-weight: 600;
+            text-decoration: none;
+        }
 
+        .footer-logo img {
+            height: 28px;
+            width: auto;
+        }
+
+        .footer-right {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
             .login-card {
                 padding: 2rem 1.5rem;
+                margin: 0 1rem;
             }
 
             .login-title {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
             }
 
-            .footer-content {
+            .footer {
                 flex-direction: column;
                 gap: 1rem;
+                text-align: center;
+                padding: 2rem 1rem;
             }
-        }
 
-        .system-info {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            text-align: center;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .system-info h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #fff;
-        }
-
-        .credentials {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.75rem 0;
-            font-family: 'Monaco', 'Menlo', monospace;
+            .footer-right {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -252,7 +217,7 @@
             </div>
 
             <h1 class="login-title">Bienvenido</h1>
-            <p class="login-subtitle">Sistema de Gestión CDF Entrenamiento Elite</p>
+            <p class="login-subtitle">Accede a tu cuenta de CDF</p>
 
             <!-- Flash Messages -->
             <% if (typeof error !== 'undefined' && error) { %>
@@ -271,48 +236,29 @@
             <form method="POST" action="/login">
                 <div class="form-group">
                     <label for="username" class="form-label">Usuario</label>
-                    <div class="input-icon">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" class="form-input" 
-                               placeholder="Ingrese su usuario" required>
-                    </div>
+                    <input type="text" id="username" name="username" class="form-input" 
+                           placeholder="Ingresa tu usuario" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Contraseña</label>
-                    <div class="input-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" class="form-input" 
-                               placeholder="Ingrese su contraseña" required>
-                    </div>
+                    <input type="password" id="password" name="password" class="form-input" 
+                           placeholder="Ingresa tu contraseña" required>
                 </div>
 
                 <button type="submit" class="login-button">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Iniciar Sesión
+                    Ingresar al Sistema
                 </button>
             </form>
-        </div>
-
-        <div class="system-info">
-            <h3>Sistema de Gestión CDF Elite</h3>
-            <p>Plataforma integral para la administración de gimnasios y centros de entrenamiento.</p>
-            <div class="credentials">
-                <strong>Usuario:</strong> administrador<br>
-                <strong>Contraseña:</strong> CDFElite2025**
-            </div>
-            <p><i class="fas fa-shield-alt"></i> Sistema seguro y confiable</p>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-text">© 2025 CDF Entrenamiento Elite</div>
-            <a href="#" class="footer-logo">
-                <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" style="height: 32px; width: auto;">
-            </a>
-            <div class="footer-text">Desarrollado por Alan Stefanov, Software Engineer.</div>
-        </div>
+        <div class="footer-left">© 2025 CDF Entrenamiento Elite</div>
+        <a href="#" class="footer-logo">
+            <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo">
+        </a>
+        <div class="footer-right">Desarrollado por Alan Stefanov, Software Engineer.</div>
     </footer>
 </body>
 </html>
