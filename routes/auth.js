@@ -17,10 +17,10 @@ router.get('/login', isNotAuth, (req, res) => {
 router.post('/login', isNotAuth, async (req, res) => {
     try {
         const { username, password } = req.body;
-        
+
         // Find user
         const user = await User.findOne({ where: { username } });
-        
+
         if (!user) {
             req.flash('error', 'Usuario o contraseña incorrectos');
             return res.redirect('/login');
@@ -28,7 +28,7 @@ router.post('/login', isNotAuth, async (req, res) => {
 
         // Check password
         const isValidPassword = await bcrypt.compare(password, user.password_hash);
-        
+
         if (!isValidPassword) {
             req.flash('error', 'Usuario o contraseña incorrectos');
             return res.redirect('/login');
@@ -36,7 +36,7 @@ router.post('/login', isNotAuth, async (req, res) => {
 
         // Create session
         req.session.userId = user.id;
-        
+
         req.flash('success', `¡Bienvenido, ${user.username}!`);
         res.redirect('/dashboard');
     } catch (error) {

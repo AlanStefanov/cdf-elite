@@ -1,7 +1,5 @@
-const sequelize = require('./database');
-const { Plan, Alumno } = require('../models/associations');
-const User = require('../models/User');
-const Colaborador = require('../models/Colaborador');
+
+const { sequelize, User, Plan } = require('./database');
 const bcrypt = require('bcryptjs');
 
 // Create tables
@@ -32,6 +30,7 @@ async function initializeDatabase() {
         });
 
         console.log('Database initialized successfully!');
+        console.log('Admin user created: administrador / CDFElite2025**');
     } catch (error) {
         console.error('Error initializing database:', error);
     }
