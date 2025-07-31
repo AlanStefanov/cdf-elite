@@ -1,7 +1,5 @@
 
 const postcss = require('postcss');
-const tailwindcss = require('tailwindcss');
-const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,8 +8,8 @@ async function buildCSS() {
     const css = fs.readFileSync('./public/css/input.css', 'utf8');
     
     const result = await postcss([
-      tailwindcss,
-      autoprefixer
+      require('@tailwindcss/postcss'),
+      require('autoprefixer')
     ]).process(css, {
       from: './public/css/input.css',
       to: './public/css/output.css'

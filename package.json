@@ -23,6 +23,7 @@
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@mui/x-data-grid": "^8.9.1",
+    "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "connect-flash": "^0.1.1",
