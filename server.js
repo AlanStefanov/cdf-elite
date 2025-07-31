@@ -4,6 +4,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
 const { startMembershipUpdater } = require('./jobs/membershipUpdater');
+const morgan = require('morgan');
 
 // Load environment variables
 dotenv.config();
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -83,7 +85,7 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    
+
     // Iniciar el actualizador automático de membresías
     startMembershipUpdater();
 });
