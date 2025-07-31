@@ -1,4 +1,5 @@
 const { Alumno, Plan } = require('../config/database');
+const { Op } = require('sequelize');
 
 // Helper function to format date
 const formatDate = (date) => {
