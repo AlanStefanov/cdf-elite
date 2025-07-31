@@ -147,13 +147,13 @@
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center">
                                 <input type="radio" id="membresiaPagadaSi" name="membresia_pagada" value="true" 
-                                       <%= alumno.membresia_pagada ? 'checked' : '' %>
+                                       <%= alumno.membresia_pagada === true ? 'checked' : '' %>
                                        class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
                                 <label for="membresiaPagadaSi" class="ml-2 block text-sm font-medium text-gray-700">Sí</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="radio" id="membresiaPagadaNo" name="membresia_pagada" value="false"
-                                       <%= !alumno.membresia_pagada ? 'checked' : '' %>
+                                       <%= alumno.membresia_pagada === false || alumno.membresia_pagada === null ? 'checked' : '' %>
                                        class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
                                 <label for="membresiaPagadaNo" class="ml-2 block text-sm font-medium text-gray-700">No</label>
                             </div>

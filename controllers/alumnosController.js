@@ -320,7 +320,7 @@ exports.update = async (req, res) => {
             id_plan,
             direccion,
             observaciones,
-            membresia_pagada: membresia_pagada === 'on' || membresia_pagada === true,
+            membresia_pagada: membresia_pagada === 'true' || membresia_pagada === true,
             fecha_pago: fecha_pago ? new Date(fecha_pago) : null,
             fecha_vencimiento_membresia: fechaVencimiento,
             estado_membresia: estado_membresia || 'Activa'
