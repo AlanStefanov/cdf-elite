@@ -104,6 +104,24 @@ exports.index = async (req, res) => {
             sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
         );
 
+        // Calculate potential revenue (all active members)
+        const alumnosActivos = await Alumno.findAll({
+            where: {
+                fecha_vencimiento_membresia: {
+                    [Op.gte]: now
+                }
+            },
+            include: [{
+                model: Plan,
+                as: 'plan',
+                attributes: ['precio']
+            }]
+        });
+
+        const ingresosPotenciales = alumnosActivos.reduce((sum, alumno) => 
+            sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
+        );
+
         res.render('dashboard/index', {
             title: 'Dashboard - CDF Entrenamiento Elite',
             user: req.session.userId,
@@ -115,6 +133,7 @@ exports.index = async (req, res) => {
             porVencer,
             recaudacionMensual,
             recaudacionHoy,
+            ingresosPotenciales,
             stats: {
                 totalAlumnos,
                 totalPlanes,
@@ -123,7 +142,8 @@ exports.index = async (req, res) => {
                 vencidos,
                 porVencer,
                 recaudacionMensual,
-                recaudacionHoy
+                recaudacionHoy,
+                ingresosPotenciales
             },
             planData,
             membresiasPorVencer,
