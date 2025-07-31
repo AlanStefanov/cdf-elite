@@ -95,19 +95,17 @@
             
             <div class="material-card p-8">
                 <!-- Flash Messages -->
-                <% if (typeof messages !== 'undefined') { %>
-                    <% if (messages.error && messages.error.length > 0) { %>
-                        <div class="alert alert-error">
-                            <span class="material-icons">error</span>
-                            <%= messages.error[0] %>
-                        </div>
-                    <% } %>
-                    <% if (messages.success && messages.success.length > 0) { %>
-                        <div class="alert alert-success">
-                            <span class="material-icons">check_circle</span>
-                            <%= messages.success[0] %>
-                        </div>
-                    <% } %>
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="alert alert-error">
+                        <span class="material-icons">error</span>
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if (typeof success !== 'undefined' && success) { %>
+                    <div class="alert alert-success">
+                        <span class="material-icons">check_circle</span>
+                        <%= success %>
+                    </div>
                 <% } %>
 
                 <form action="/login" method="POST" class="space-y-6">
