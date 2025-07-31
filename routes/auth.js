@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const { User } = require('../config/database');
 const { isNotAuth } = require('../middleware/auth');
 
 // Login page
 router.get('/login', isNotAuth, (req, res) => {
     res.render('auth/login', {
         title: 'Iniciar Sesión',
-        error: req.flash('error')[0]
+        error: req.flash('error')[0],
+        success: req.flash('success')[0]
     });
 });
 
@@ -36,6 +37,7 @@ router.post('/login', isNotAuth, async (req, res) => {
         // Create session
         req.session.userId = user.id;
         
+        req.flash('success', `¡Bienvenido, ${user.username}!`);
         res.redirect('/dashboard');
     } catch (error) {
         console.error('Login error:', error);
