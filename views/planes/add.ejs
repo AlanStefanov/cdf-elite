@@ -6,87 +6,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        .material-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.3s ease;
-        }
-        .material-input {
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 12px 16px;
-            font-size: 16px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .material-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        .material-button {
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .material-button:hover {
-            background: linear-gradient(45deg, #1d4ed8, #1e40af);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-        .material-button.secondary {
-            background: linear-gradient(45deg, #6b7280, #4b5563);
-        }
-        .material-button.secondary:hover {
-            background: linear-gradient(45deg, #4b5563, #374151);
+        .header-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
         }
         .footer-bg {
             background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
         }
-        .alert {
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            display: flex;
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .form-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
+        }
+        .form-label {
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
         }
         .alert-error {
-            background-color: #fef2f2;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             border: 1px solid #fecaca;
             color: #dc2626;
         }
         .alert-success {
-            background-color: #f0fdf4;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
             border: 1px solid #bbf7d0;
             color: #16a34a;
         }
+        .back-button {
+            color: #6b7280;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .back-button:hover {
+            color: #374151;
+            background: rgba(107, 114, 128, 0.1);
+        }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
     <!-- Header -->
     <header class="header-bg shadow-lg border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+            <div class="flex justify-between items-center h-20">
                 <div class="flex items-center">
-                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-12 w-12 mr-3">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-12 mr-3">
                     <span class="text-white text-xl font-bold">Entrenamiento elite</span>
                 </div>
                 <nav class="flex items-center space-x-6">
@@ -106,40 +151,43 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <main class="flex-1 max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Page Header -->
         <div class="mb-8">
             <div class="flex items-center mb-4">
-                <a href="/planes" class="text-gray-500 hover:text-gray-700 mr-4">
-                    <span class="material-icons">arrow_back</span>
+                <a href="/planes" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver
                 </a>
-                <h1 class="text-3xl font-bold text-gray-900">Agregar Nuevo Plan</h1>
             </div>
-            <p class="text-gray-600">Completa la información del nuevo plan de entrenamiento</p>
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">Agregar Nuevo Plan</h1>
+                <p class="text-gray-600 text-lg">Completa la información del nuevo plan de entrenamiento</p>
+            </div>
         </div>
 
         <!-- Flash Messages -->
         <% if (typeof messages !== 'undefined') { %>
             <% if (messages.error && messages.error.length > 0) { %>
                 <div class="alert alert-error">
-                    <span class="material-icons">error</span>
+                    <i class="fas fa-exclamation-circle text-lg"></i>
                     <%= messages.error[0] %>
                 </div>
             <% } %>
             <% if (messages.success && messages.success.length > 0) { %>
                 <div class="alert alert-success">
-                    <span class="material-icons">check_circle</span>
+                    <i class="fas fa-check-circle text-lg"></i>
                     <%= messages.success[0] %>
                 </div>
             <% } %>
         <% } %>
 
-        <!-- Form -->
-        <div class="material-card p-8">
+        <!-- Form Card -->
+        <div class="card p-8 max-w-2xl mx-auto">
             <form action="/planes/add" method="POST" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="nombre_plan" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nombre_plan" class="form-label">
                             Nombre del Plan *
                         </label>
                         <input 
@@ -147,13 +195,13 @@
                             id="nombre_plan" 
                             name="nombre_plan" 
                             required 
-                            class="material-input w-full"
+                            class="form-input"
                             placeholder="Ej: Plan Básico"
                         >
                     </div>
 
                     <div>
-                        <label for="precio" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="precio" class="form-label">
                             Precio *
                         </label>
                         <input 
@@ -163,14 +211,14 @@
                             step="0.01" 
                             min="0" 
                             required 
-                            class="material-input w-full"
+                            class="form-input"
                             placeholder="0.00"
                         >
                     </div>
                 </div>
 
                 <div>
-                    <label for="duracion_dias" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="duracion_dias" class="form-label">
                         Duración (días) *
                     </label>
                     <input 
@@ -179,32 +227,32 @@
                         name="duracion_dias" 
                         min="1" 
                         required 
-                        class="material-input w-full"
+                        class="form-input"
                         placeholder="30"
                     >
                 </div>
 
                 <div>
-                    <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="descripcion" class="form-label">
                         Descripción
                     </label>
                     <textarea 
                         id="descripcion" 
                         name="descripcion" 
                         rows="4" 
-                        class="material-input w-full"
+                        class="form-input"
                         placeholder="Describe los beneficios y características del plan..."
                     ></textarea>
                 </div>
 
-                <div class="flex justify-end space-x-4 pt-6">
-                    <a href="/planes" class="material-button secondary">
-                        <span class="material-icons text-sm">cancel</span>
-                        Cancelar
+                <div class="flex justify-center space-x-4 pt-6">
+                    <a href="/planes" class="btn-secondary">
+                        <i class="fas fa-times"></i>
+                        CANCELAR
                     </a>
-                    <button type="submit" class="material-button">
-                        <span class="material-icons text-sm">save</span>
-                        Guardar Plan
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i>
+                        GUARDAR PLAN
                     </button>
                 </div>
             </form>
@@ -216,10 +264,10 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 <div class="text-white text-sm">
-                    Desarrollado por Alana Stefanov, Software Engineer
+                    Desarrollado por Alan Stefanov, Software Engineer
                 </div>
                 <div class="flex items-center">
-                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-6 w-6 mr-3">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-6 mr-3">
                 </div>
                 <div class="text-white text-sm">
                     ©2025 CDF Entrenamiento Elite. Todos los derechos reservados
