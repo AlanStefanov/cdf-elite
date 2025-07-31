@@ -45,6 +45,8 @@
         .logo {
             height: 60px;
             width: auto;
+            max-width: 200px;
+            object-fit: contain;
         }
 
         .login-title {
@@ -165,7 +167,8 @@
     <div class="login-container">
         <div class="login-card">
             <div class="logo-container">
-                <img src="/images/cdf-logo-new.png" alt="CDF Elite Logo" class="logo">
+                <img src="/images/cdf-logo-final.png" alt="CDF Elite Logo" class="logo" 
+                     onerror="this.onerror=null; this.src='/images/cdf-logo-new.png';">
             </div>
             
             <h1 class="login-title">Bienvenido</h1>
