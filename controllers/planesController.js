@@ -6,34 +6,15 @@ exports.index = async (req, res) => {
         const planes = await Plan.findAll({
             order: [['nombre_plan', 'ASC']]
         });
-
         res.render('planes/index', {
             title: 'Planes - CDF Entrenamiento Elite',
-            user: req.session.userId,
             planes,
-            messages: {
-                success: req.flash('success'),
-                error: req.flash('error')
-            }
+            user: req.session.userId
         });
     } catch (error) {
         console.error('Error fetching planes:', error);
         req.flash('error', 'Error al cargar los planes');
         res.redirect('/dashboard');
-    }
-};
-
-// API endpoint for plans
-exports.apiData = async (req, res) => {
-    try {
-        const planes = await Plan.findAll({
-            order: [['nombre_plan', 'ASC']]
-        });
-
-        res.json(planes);
-    } catch (error) {
-        console.error('Error fetching planes API data:', error);
-        res.status(500).json([]);
     }
 };
 

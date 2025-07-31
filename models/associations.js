@@ -1,8 +1,8 @@
 
 module.exports = (sequelize, models) => {
-    const { Plan, Alumno, Colaborador, User } = models;
+    const { Plan, Alumno } = models;
 
-    // Plan - Alumno relationship
+    // Define associations
     Plan.hasMany(Alumno, {
         foreignKey: 'id_plan',
         as: 'alumnos'
@@ -13,5 +13,5 @@ module.exports = (sequelize, models) => {
         as: 'plan'
     });
 
-    return { Plan, Alumno, Colaborador, User };
+    return models;
 };

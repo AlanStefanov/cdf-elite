@@ -1,61 +1,7 @@
+const sequelize = require('../config/database');
+const { DataTypes } = require('sequelize');
 
-const { Sequelize, DataTypes } = require('sequelize');
-
-// Initialize Sequelize
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite',
-    logging: false
-});
-
-// Define models directly here
-const User = sequelize.define('User', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    password_hash: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-}, {
-    tableName: 'Users',
-    timestamps: true
-});
-
-const Plan = sequelize.define('Plan', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nombre_plan: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    precio: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.TEXT
-    },
-    duracion_dias: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 30
-    }
-}, {
-    tableName: 'Plans',
-    timestamps: true
-});
-
+// Define models
 const Alumno = sequelize.define('Alumno', {
     id: {
         type: DataTypes.INTEGER,
@@ -78,7 +24,10 @@ const Alumno = sequelize.define('Alumno', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: true
+        }
     },
     telefono: {
         type: DataTypes.STRING,
@@ -90,9 +39,9 @@ const Alumno = sequelize.define('Alumno', {
     },
     id_plan: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true, // Changed to true to make it optional
         references: {
-            model: 'Plans',
+            model: 'Planes',
             key: 'id'
         }
     },
@@ -101,20 +50,55 @@ const Alumno = sequelize.define('Alumno', {
         allowNull: false
     },
     estado_membresia: {
-        type: DataTypes.ENUM('Activa', 'Vencida', 'Por vencer'),
-        defaultValue: 'Activa'
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'Pendiente'
     },
-    membresia_pagada: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-    fecha_pago: {
+    createdAt: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     }
-}, {
-    tableName: 'Alumnos',
-    timestamps: true
+});
+
+const Plan = sequelize.define('Plan', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nombre_plan: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    precio: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false
+    },
+    descripcion: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    duracion_dias: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    }
 });
 
 const Colaborador = sequelize.define('Colaborador', {
@@ -139,13 +123,24 @@ const Colaborador = sequelize.define('Colaborador', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: true
+        }
     },
     telefono: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    posicion: {
+    fecha_nacimiento: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    fecha_contratacion: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    rol: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -153,30 +148,39 @@ const Colaborador = sequelize.define('Colaborador', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
-    fecha_inicio: {
+    createdAt: {
         type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    }
+});
+
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password_hash: {
+        type: DataTypes.STRING,
         allowNull: false
     }
-}, {
-    tableName: 'Colaboradors',
-    timestamps: true
 });
 
-// Define associations
-Plan.hasMany(Alumno, {
-    foreignKey: 'id_plan',
-    as: 'alumnos'
-});
-
-Alumno.belongsTo(Plan, {
-    foreignKey: 'id_plan',
-    as: 'plan'
-});
-
+// Export models
 module.exports = {
-    sequelize,
     Alumno,
-    Plan, 
+    Plan,
     Colaborador,
     User
 };

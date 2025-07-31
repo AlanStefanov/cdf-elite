@@ -4,36 +4,17 @@ const { Colaborador } = require('../config/database');
 exports.index = async (req, res) => {
     try {
         const colaboradores = await Colaborador.findAll({
-            order: [['nombre', 'ASC']]
+            order: [['apellido', 'ASC']]
         });
-
         res.render('colaboradores/index', {
             title: 'Colaboradores - CDF Entrenamiento Elite',
-            user: req.session.userId,
             colaboradores,
-            messages: {
-                success: req.flash('success'),
-                error: req.flash('error')
-            }
+            user: req.session.userId
         });
     } catch (error) {
         console.error('Error fetching colaboradores:', error);
         req.flash('error', 'Error al cargar los colaboradores');
         res.redirect('/dashboard');
-    }
-};
-
-// API endpoint for colaboradores
-exports.apiData = async (req, res) => {
-    try {
-        const colaboradores = await Colaborador.findAll({
-            order: [['nombre', 'ASC']]
-        });
-
-        res.json(colaboradores);
-    } catch (error) {
-        console.error('Error fetching colaboradores API data:', error);
-        res.status(500).json([]);
     }
 };
 
