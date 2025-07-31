@@ -107,6 +107,14 @@ exports.index = async (req, res) => {
         res.render('dashboard/index', {
             title: 'Dashboard - CDF Entrenamiento Elite',
             user: req.session.userId,
+            totalAlumnos,
+            totalPlanes,
+            totalColaboradores,
+            activos,
+            vencidos,
+            porVencer,
+            recaudacionMensual,
+            recaudacionHoy,
             stats: {
                 totalAlumnos,
                 totalPlanes,
