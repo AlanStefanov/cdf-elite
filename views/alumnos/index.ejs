@@ -94,6 +94,26 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Design System - Money Visibility */
+        .money-hidden {
+            filter: blur(8px);
+            transition: filter 0.3s ease;
+        }
+        
+        .money-visible {
+            filter: none;
+            transition: filter 0.3s ease;
+        }
+        
+        .eye-toggle {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .eye-toggle:hover {
+            color: #374151;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -156,13 +176,12 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Recaudado este mes</dt>
                                     <dd class="text-lg font-medium text-gray-900">
-                                        <span id="amount-recaudacion" style="display: none;">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
-                                        <span id="hidden-recaudacion">$ ***</span>
+                                        <span id="amount-recaudacion" class="money-hidden">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
                                     </dd>
                                 </dl>
                             </div>
                         </div>
-                        <button onclick="toggleMoney('recaudacion')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <button onclick="toggleMoney('recaudacion')" class="eye-toggle text-gray-500">
                             <i id="eye-recaudacion" class="fas fa-eye-slash text-lg"></i>
                         </button>
                     </div>
@@ -183,13 +202,12 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Ingresos Potenciales</dt>
                                     <dd class="text-lg font-medium text-gray-900">
-                                        <span id="amount-potenciales" style="display: none;">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
-                                        <span id="hidden-potenciales">$ ***</span>
+                                        <span id="amount-potenciales" class="money-hidden">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
                                     </dd>
                                 </dl>
                             </div>
                         </div>
-                        <button onclick="toggleMoney('potenciales')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <button onclick="toggleMoney('potenciales')" class="eye-toggle text-gray-500">
                             <i id="eye-potenciales" class="fas fa-eye-slash text-lg"></i>
                         </button>
                     </div>
@@ -288,20 +306,20 @@
     <script>
         let revenueVisible = false;
 
+        // Design System - Money Toggle Function
         function toggleMoney(type) {
             const amountElement = document.getElementById(`amount-${type}`);
-            const hiddenElement = document.getElementById(`hidden-${type}`);
             const eyeIcon = document.getElementById(`eye-${type}`);
 
-            if (amountElement.style.display === 'none') {
+            if (amountElement.classList.contains('money-hidden')) {
                 // Mostrar dinero
-                amountElement.style.display = 'inline';
-                hiddenElement.style.display = 'none';
+                amountElement.classList.remove('money-hidden');
+                amountElement.classList.add('money-visible');
                 eyeIcon.className = 'fas fa-eye text-lg';
             } else {
                 // Ocultar dinero
-                amountElement.style.display = 'none';
-                hiddenElement.style.display = 'inline';
+                amountElement.classList.remove('money-visible');
+                amountElement.classList.add('money-hidden');
                 eyeIcon.className = 'fas fa-eye-slash text-lg';
             }
         }
@@ -420,24 +438,6 @@
 
         // Load data when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // Inicializar con valores ocultos al cargar la página
-            const amountRecaudacion = document.getElementById('amount-recaudacion');
-            const hiddenRecaudacion = document.getElementById('hidden-recaudacion');
-            const eyeRecaudacion = document.getElementById('eye-recaudacion');
-
-            if (amountRecaudacion) amountRecaudacion.style.display = 'none';
-            if (hiddenRecaudacion) hiddenRecaudacion.style.display = 'inline';
-            if (eyeRecaudacion) eyeRecaudacion.className = 'fas fa-eye-slash text-lg';
-
-            const amountPotenciales = document.getElementById('amount-potenciales');
-            const hiddenPotenciales = document.getElementById('hidden-potenciales');
-            const eyePotenciales = document.getElementById('eye-potenciales');
-
-            if (amountPotenciales) amountPotenciales.style.display = 'none';
-            if (hiddenPotenciales) hiddenPotenciales.style.display = 'inline';
-            if (eyePotenciales) eyePotenciales.className = 'fas fa-eye-slash text-lg';
-
             console.log('DOM loaded, loading students...');
             loadStudents();
         });
