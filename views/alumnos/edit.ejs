@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -227,25 +226,25 @@
             const planSelect = document.getElementById('id_plan');
             const dateInput = document.getElementById('fecha_vencimiento_membresia');
             const planInfo = document.getElementById('plan-info');
-            
+
             if (planSelect.value) {
                 const selectedOption = planSelect.options[planSelect.selectedIndex];
                 const duracionDias = parseInt(selectedOption.getAttribute('data-duracion'));
-                
+
                 if (duracionDias) {
                     const today = new Date();
                     today.setDate(today.getDate() + duracionDias);
-                    
+
                     const newDate = today.toISOString().split('T')[0];
                     dateInput.value = newDate;
-                    
+
                     const fechaAmigable = today.toLocaleDateString('es-ES', {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
                     });
-                    
+
                     planInfo.textContent = `Nueva fecha calculada para ${duracionDias} días: ${fechaAmigable}`;
                     planInfo.className = 'mt-1 text-sm text-green-600';
                 }

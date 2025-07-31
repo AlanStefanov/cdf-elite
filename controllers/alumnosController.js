@@ -152,7 +152,20 @@ exports.create = async (req, res) => {
         if (fechaPago && isNaN(fechaPago.getTime())) {
             throw new Error('Formato de fecha inválido');
         }
-        const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan, fecha_vencimiento_membresia } = req.body;
+        const { 
+            nombre, 
+            apellido, 
+            dni, 
+            email, 
+            telefono, 
+            fecha_nacimiento, 
+            id_plan, 
+            fecha_vencimiento_membresia,
+            direccion,
+            observaciones,
+            membresia_pagada,
+            fecha_pago
+        } = req.body;
 
         // Validate required fields
         if (!nombre || !apellido || !dni || !email || !telefono || !fecha_nacimiento || !id_plan) {
@@ -196,6 +209,10 @@ exports.create = async (req, res) => {
             telefono,
             fecha_nacimiento,
             id_plan,
+            direccion,
+            observaciones,
+            membresia_pagada: membresia_pagada === 'on' || membresia_pagada === true,
+            fecha_pago: fecha_pago ? new Date(fecha_pago) : null,
             fecha_vencimiento_membresia: fechaVencimiento,
             estado_membresia: 'Activa'
         });
@@ -250,7 +267,20 @@ exports.update = async (req, res) => {
             throw new Error('Formato de fecha inválido');
         }
         const { id } = req.params;
-        const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan } = req.body;
+        const { 
+            nombre, 
+            apellido, 
+            dni, 
+            email, 
+            telefono, 
+            fecha_nacimiento, 
+            id_plan, 
+            direccion, 
+            observaciones, 
+            membresia_pagada, 
+            fecha_pago,
+            estado_membresia 
+        } = req.body;
 
         const alumno = await Alumno.findByPk(id);
         if (!alumno) {
@@ -288,8 +318,12 @@ exports.update = async (req, res) => {
             telefono,
             fecha_nacimiento,
             id_plan,
+            direccion,
+            observaciones,
+            membresia_pagada: membresia_pagada === 'on' || membresia_pagada === true,
+            fecha_pago: fecha_pago ? new Date(fecha_pago) : null,
             fecha_vencimiento_membresia: fechaVencimiento,
-            estado_membresia: 'Activa'
+            estado_membresia: estado_membresia || 'Activa'
         });
 
         req.flash('success', 'Alumno actualizado exitosamente');
