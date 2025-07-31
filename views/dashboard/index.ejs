@@ -175,11 +175,14 @@
 
         .eye-toggle {
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 4px;
+            border-radius: 4px;
         }
 
         .eye-toggle:hover {
-            color: #e2e8f0;
+            background-color: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -240,28 +243,28 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="stat-card">
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-users text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.totalAlumnos %></div>
                 <div class="stat-label">Total Alumnos</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-check-circle text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.activos %></div>
                 <div class="stat-label">Membresías Activas</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-times-circle text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.vencidos %></div>
                 <div class="stat-label">Membresías Vencidas</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-clipboard-list text-2xl"></i>
                 </div>
@@ -272,40 +275,40 @@
 
         <!-- Revenue Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="text-white">
+                    <div class="text-gray-800">
                         <i class="fas fa-dollar-sign text-2xl"></i>
                     </div>
-                    <button onclick="toggleMoney('mensual')" class="eye-toggle text-white">
+                    <button onclick="toggleMoney('mensual')" class="eye-toggle text-gray-800">
                         <i id="eye-mensual" class="fas fa-eye-slash text-lg"></i>
                     </button>
                 </div>
-                <div class="stat-number">
+                <div class="stat-number text-gray-800">
                     <span id="amount-mensual" class="money-hidden">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></span>
                 </div>
-                <div class="stat-label">Recaudación Mensual</div>
+                <div class="stat-label text-gray-700">Recaudación Mensual</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="text-white">
+                    <div class="text-gray-800">
                         <i class="fas fa-calendar-day text-2xl"></i>
                     </div>
-                    <button onclick="toggleMoney('hoy')" class="eye-toggle text-white">
+                    <button onclick="toggleMoney('hoy')" class="eye-toggle text-gray-800">
                         <i id="eye-hoy" class="fas fa-eye-slash text-lg"></i>
                     </button>
                 </div>
-                <div class="stat-number">
+                <div class="stat-number text-gray-800">
                     <span id="amount-hoy" class="money-hidden">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></span>
                 </div>
-                <div class="stat-label">Recaudación Hoy</div>
+                <div class="stat-label text-gray-700">Recaudación Hoy</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);">
-                <div class="text-white mb-4">
+            <div class="stat-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                <div class="text-gray-800 mb-4">
                     <i class="fas fa-exclamation-triangle text-2xl"></i>
                 </div>
-                <div class="stat-number"><%= stats.porVencer %></div>
-                <div class="stat-label">Por Vencer (7 días)</div>
+                <div class="stat-number text-gray-800"><%= stats.porVencer %></div>
+                <div class="stat-label text-gray-700">Por Vencer (7 días)</div>
             </div>
         </div>
 

@@ -13,8 +13,23 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Logging middleware for debugging
+app.use((req, res, next) => {
+    if (req.url.includes('/images/') || req.url.includes('.png') || req.url.includes('.jpg')) {
+        console.log(`📸 Image request: ${req.method} ${req.url}`);
+        console.log(`📁 Looking for file: ${req.url}`);
+    }
+    next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// Log available static paths
+console.log('📂 Static paths configured:');
+console.log(`   Public: ${path.join(__dirname, 'public')}`);
+console.log(`   Images: ${path.join(__dirname, 'images')}`);
 
 // Session configuration
 app.use(session({
