@@ -48,13 +48,21 @@ exports.index = async (req, res) => {
 
         // Calculate monthly revenue
         const totalRecaudado = recaudacionMensual.reduce((sum, alumno) => 
-            sum + (alumno.plan ? alumno.plan.precio : 0), 0
+            sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
+        );
+
+        // Calculate potential monthly revenue from active memberships
+        const ingresosPotenciales = totalAlumnos.reduce((sum, alumno) => 
+            sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
         );
 
         res.render('alumnos/index', {
             title: 'Alumnos - CDF Entrenamiento Elite',
             user: req.session.userId,
-            recaudacionMensual: totalRecaudado
+            recaudacionMensual: totalRecaudado,
+            ingresosPotenciales: ingresosPotenciales,
+            membresiasPagadas: recaudacionMensual.length,
+            membresiasTotales: totalAlumnos.length
         });
     } catch (error) {
         console.error('Error rendering alumnos page:', error);

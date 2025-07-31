@@ -178,7 +178,7 @@
         <!-- Membresías por Vencer Section -->
         <div class="mt-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Membresías por Vencer</h2>
-            
+
             <% if (stats.porVencer > 0) { %>
             <div class="material-card p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
@@ -274,10 +274,10 @@
             function notificarWhatsApp(telefono, nombre, diasRestantes) {
                 // Limpiar el número de teléfono (remover espacios, guiones, etc.)
                 const telefonoLimpio = telefono.replace(/\D/g, '');
-                
+
                 // Mensaje personalizado
                 let mensaje = `¡Hola ${nombre}! 👋\n\n`;
-                
+
                 if (diasRestantes <= 0) {
                     mensaje += `Tu membresía en CDF Entrenamiento Elite ha vencido. ⚠️\n\n`;
                 } else if (diasRestantes <= 3) {
@@ -285,18 +285,18 @@
                 } else {
                     mensaje += `Tu membresía en CDF Entrenamiento Elite vence en ${diasRestantes} días. ⏰\n\n`;
                 }
-                
+
                 mensaje += `¡No te quedes sin entrenar! 💪\n`;
                 mensaje += `Contáctanos para renovar tu membresía.\n\n`;
                 mensaje += `📞 ¡Te esperamos!\n`;
                 mensaje += `CDF Entrenamiento Elite`;
-                
+
                 // Codificar el mensaje para URL
                 const mensajeCodificado = encodeURIComponent(mensaje);
-                
+
                 // Crear URL de WhatsApp
                 const urlWhatsApp = `https://wa.me/54${telefonoLimpio}?text=${mensajeCodificado}`;
-                
+
                 // Abrir WhatsApp en nueva ventana
                 window.open(urlWhatsApp, '_blank');
             }

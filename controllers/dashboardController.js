@@ -63,6 +63,47 @@ exports.index = async (req, res) => {
 
         const porVencer = membresiasPorVencer.length;
 
+        // Calculate monthly revenue from active memberships
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+        const [membresiasPagadasMes, membresiasPagadasHoy] = await Promise.all([
+            Alumno.findAll({
+                where: {
+                    membresia_pagada: true,
+                    fecha_pago: {
+                        [Op.between]: [startOfMonth, endOfMonth]
+                    }
+                },
+                include: [{
+                    model: Plan,
+                    as: 'plan',
+                    attributes: ['precio']
+                }]
+            }),
+            Alumno.findAll({
+                where: {
+                    membresia_pagada: true,
+                    fecha_pago: {
+                        [Op.gte]: new Date(now.getFullYear(), now.getMonth(), now.getDate())
+                    }
+                },
+                include: [{
+                    model: Plan,
+                    as: 'plan',
+                    attributes: ['precio']
+                }]
+            })
+        ]);
+
+        const recaudacionMensual = membresiasPagadasMes.reduce((sum, alumno) => 
+            sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
+        );
+
+        const recaudacionHoy = membresiasPagadasHoy.reduce((sum, alumno) => 
+            sum + (alumno.plan ? parseFloat(alumno.plan.precio) : 0), 0
+        );
+
         res.render('dashboard/index', {
             title: 'Dashboard - CDF Entrenamiento Elite',
             user: req.session.userId,
@@ -72,7 +113,9 @@ exports.index = async (req, res) => {
                 totalColaboradores,
                 activos,
                 vencidos,
-                porVencer
+                porVencer,
+                recaudacionMensual,
+                recaudacionHoy
             },
             planData,
             membresiasPorVencer,
