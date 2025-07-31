@@ -82,19 +82,24 @@
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
+    <header class="header-bg shadow-lg border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
-                    <span class="text-xl font-semibold text-gray-900">Entrenamiento elite</span>
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-12 w-12 mr-3">
+                    <span class="text-white text-xl font-bold">Entrenamiento elite</span>
                 </div>
-                <nav class="flex space-x-6">
-                    <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
-                    <a href="/alumnos" class="text-gray-600 hover:text-gray-900">Alumnos</a>
-                    <a href="/planes" class="text-blue-600 font-medium">Planes</a>
-                    <a href="/colaboradores" class="text-gray-600 hover:text-gray-900">Colaboradores</a>
-                    <a href="/logout" class="text-red-600 hover:text-red-700">Cerrar Sesión</a>
+                <nav class="flex items-center space-x-6">
+                    <a href="/dashboard" class="text-white hover:text-gray-300 transition-colors flex items-center">
+                        <i class="fas fa-chart-bar mr-1"></i>DB
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="/alumnos" class="text-white hover:text-gray-300 transition-colors">Alumnos</a>
+                    <a href="/planes" class="text-white hover:text-gray-300 transition-colors font-semibold">Planes</a>
+                    <a href="/colaboradores" class="text-white hover:text-gray-300 transition-colors">Colaboradores</a>
+                    <button onclick="window.location.href='/logout'" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        Cerrar sesión
+                    </button>
                 </nav>
             </div>
         </div>
@@ -214,7 +219,7 @@
                     Desarrollado por Alana Stefanov, Software Engineer
                 </div>
                 <div class="flex items-center">
-                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-6 w-6 mr-3">
                 </div>
                 <div class="text-white text-sm">
                     ©2025 CDF Entrenamiento Elite. Todos los derechos reservados
