@@ -1,6 +1,60 @@
 
-const { sequelize } = require('../config/database');
-const { DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+
+// Initialize Sequelize
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: './database.sqlite',
+    logging: false
+});
+
+// Define models directly here
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password_hash: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    tableName: 'Users',
+    timestamps: true
+});
+
+const Plan = sequelize.define('Plan', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nombre_plan: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    precio: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false
+    },
+    descripcion: {
+        type: DataTypes.TEXT
+    },
+    duracion_dias: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 30
+    }
+}, {
+    tableName: 'Plans',
+    timestamps: true
+});
 
 const Alumno = sequelize.define('Alumno', {
     id: {
@@ -63,33 +117,6 @@ const Alumno = sequelize.define('Alumno', {
     timestamps: true
 });
 
-const Plan = sequelize.define('Plan', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nombre_plan: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    precio: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.TEXT
-    },
-    duracion_dias: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 30
-    }
-}, {
-    tableName: 'Plans',
-    timestamps: true
-});
-
 const Colaborador = sequelize.define('Colaborador', {
     id: {
         type: DataTypes.INTEGER,
@@ -132,26 +159,6 @@ const Colaborador = sequelize.define('Colaborador', {
     }
 }, {
     tableName: 'Colaboradors',
-    timestamps: true
-});
-
-const User = sequelize.define('User', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    password_hash: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-}, {
-    tableName: 'Users',
     timestamps: true
 });
 

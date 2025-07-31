@@ -1,20 +1,17 @@
 
-const { Plan, Alumno, Colaborador, User } = require('./index');
+module.exports = (sequelize, models) => {
+    const { Plan, Alumno, Colaborador, User } = models;
 
-// Plan - Alumno relationship
-Plan.hasMany(Alumno, {
-    foreignKey: 'id_plan',
-    as: 'alumnos'
-});
+    // Plan - Alumno relationship
+    Plan.hasMany(Alumno, {
+        foreignKey: 'id_plan',
+        as: 'alumnos'
+    });
 
-Alumno.belongsTo(Plan, {
-    foreignKey: 'id_plan',
-    as: 'plan'
-});
+    Alumno.belongsTo(Plan, {
+        foreignKey: 'id_plan',
+        as: 'plan'
+    });
 
-module.exports = {
-    Plan,
-    Alumno,
-    Colaborador,
-    User
+    return { Plan, Alumno, Colaborador, User };
 };
