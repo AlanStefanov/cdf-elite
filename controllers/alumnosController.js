@@ -1,3 +1,4 @@
+
 const { Alumno, Plan } = require('../config/database');
 const { Op } = require('sequelize');
 
@@ -85,8 +86,27 @@ const alumnosController = {
         }
     },
 
-    // Resto de métodos...
-    add: async (req, res) => {
+    // API para datos de alumnos (para DataTables o similar)
+    apiData: async (req, res) => {
+        try {
+            const alumnos = await Alumno.findAll({
+                include: [{
+                    model: Plan,
+                    as: 'plan',
+                    attributes: ['nombre_plan', 'precio']
+                }],
+                order: [['createdAt', 'DESC']]
+            });
+
+            res.json({ data: alumnos });
+        } catch (error) {
+            console.error('Error fetching API data:', error);
+            res.status(500).json({ error: 'Error al cargar los datos' });
+        }
+    },
+
+    // Mostrar formulario para agregar alumno
+    addForm: async (req, res) => {
         try {
             const planes = await Plan.findAll();
             res.render('alumnos/add', {
@@ -105,6 +125,7 @@ const alumnosController = {
         }
     },
 
+    // Crear nuevo alumno
     create: async (req, res) => {
         try {
             const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan } = req.body;
@@ -134,14 +155,16 @@ const alumnosController = {
             res.redirect('/alumnos');
         } catch (error) {
             console.error('Error creating alumno:', error);
-            req.flash('error', 'Error al agregar el alumno');
+            req.flash('error', 'Error al crear el alumno');
             res.redirect('/alumnos/add');
         }
     },
 
-    edit: async (req, res) => {
+    // Mostrar formulario para editar alumno
+    editForm: async (req, res) => {
         try {
-            const alumno = await Alumno.findByPk(req.params.id, {
+            const { id } = req.params;
+            const alumno = await Alumno.findByPk(id, {
                 include: [{
                     model: Plan,
                     as: 'plan'
@@ -154,7 +177,6 @@ const alumnosController = {
             }
 
             const planes = await Plan.findAll();
-
             res.render('alumnos/edit', {
                 title: 'Editar Alumno',
                 alumno,
@@ -172,9 +194,17 @@ const alumnosController = {
         }
     },
 
+    // Actualizar alumno
     update: async (req, res) => {
         try {
+            const { id } = req.params;
             const { nombre, apellido, dni, email, telefono, fecha_nacimiento, id_plan, membresia_pagada } = req.body;
+
+            const alumno = await Alumno.findByPk(id);
+            if (!alumno) {
+                req.flash('error', 'Alumno no encontrado');
+                return res.redirect('/alumnos');
+            }
 
             const updateData = {
                 nombre,
@@ -184,18 +214,26 @@ const alumnosController = {
                 telefono,
                 fecha_nacimiento,
                 id_plan,
-                membresia_pagada: membresia_pagada === 'true'
+                membresia_pagada: membresia_pagada === 'on'
             };
 
-            if (membresia_pagada === 'true') {
+            // Si se marca como pagado, actualizar fecha de pago
+            if (membresia_pagada === 'on' && !alumno.membresia_pagada) {
                 updateData.fecha_pago = new Date();
-            } else {
-                updateData.fecha_pago = null;
             }
 
-            await Alumno.update(updateData, {
-                where: { id: req.params.id }
-            });
+            // Si cambió el plan, actualizar fecha de vencimiento
+            if (parseInt(id_plan) !== alumno.id_plan) {
+                const plan = await Plan.findByPk(id_plan);
+                if (plan) {
+                    const fechaVencimiento = new Date();
+                    fechaVencimiento.setDate(fechaVencimiento.getDate() + plan.duracion_dias);
+                    updateData.fecha_vencimiento_membresia = fechaVencimiento;
+                    updateData.estado_membresia = 'Activa';
+                }
+            }
+
+            await alumno.update(updateData);
 
             req.flash('success', 'Alumno actualizado exitosamente');
             res.redirect('/alumnos');
@@ -206,12 +244,18 @@ const alumnosController = {
         }
     },
 
+    // Eliminar alumno
     delete: async (req, res) => {
         try {
-            await Alumno.destroy({
-                where: { id: req.params.id }
-            });
+            const { id } = req.params;
 
+            const alumno = await Alumno.findByPk(id);
+            if (!alumno) {
+                req.flash('error', 'Alumno no encontrado');
+                return res.redirect('/alumnos');
+            }
+
+            await alumno.destroy();
             req.flash('success', 'Alumno eliminado exitosamente');
             res.redirect('/alumnos');
         } catch (error) {
