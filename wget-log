@@ -1,11 +1,0 @@
---2025-07-31 10:12:30--  https://ui-avatars.com/api/?name=Colaborador
-Resolviendo ui-avatars.com (ui-avatars.com)... 172.67.75.120, 104.26.8.185, 104.26.9.185, ...
-Conectando con ui-avatars.com (ui-avatars.com)[172.67.75.120]:443... conectado.
-Petición HTTP enviada, esperando respuesta... 200 OK
-Longitud: 1312 (1,3K) [image/png]
-Guardando como: ‘index.html?name=Colaborador’
-
-      index.   0%       0  --.-KB/s               index.html?n 100%   1,28K  --.-KB/s    en 0s      
-
-2025-07-31 10:12:32 (19,4 MB/s) - ‘index.html?name=Colaborador’ guardado [1312/1312]
-
