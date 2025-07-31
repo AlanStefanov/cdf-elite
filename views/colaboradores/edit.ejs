@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,102 +6,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
+        .material-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        .material-input {
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .material-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .material-button {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .material-button:hover {
+            background: linear-gradient(45deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .material-button.secondary {
+            background: linear-gradient(45deg, #6b7280, #4b5563);
+        }
+        .material-button.secondary:hover {
+            background: linear-gradient(45deg, #4b5563, #374151);
+        }
+        .footer-bg {
+            background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-white shadow-lg">
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="header-bg shadow-lg border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="text-xl font-bold text-indigo-600">CDF Entrenamiento Elite</span>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="/dashboard" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
-                        </a>
-                        <a href="/alumnos" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Alumnos
-                        </a>
-                        <a href="/planes" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Planes
-                        </a>
-                        <a href="/colaboradores" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Colaboradores
-                        </a>
-                    </div>
-                </div>
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="/logout" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Cerrar Sesión
-                    </a>
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-12 w-12 mr-3">
+                    <span class="text-white text-xl font-bold">Entrenamiento elite</span>
                 </div>
+                <nav class="flex items-center space-x-6">
+                    <a href="/dashboard" class="text-white hover:text-gray-300 transition-colors flex items-center">
+                        <i class="fas fa-chart-bar mr-1"></i>DB
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="/alumnos" class="text-white hover:text-gray-300 transition-colors">Alumnos</a>
+                    <a href="/planes" class="text-white hover:text-gray-300 transition-colors">Planes</a>
+                    <a href="/colaboradores" class="text-white hover:text-gray-300 transition-colors font-semibold">Colaboradores</a>
+                    <button onclick="window.location.href='/logout'" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        Cerrar sesión
+                    </button>
+                </nav>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 rounded-lg bg-white">
-                <% if (locals.success) { %>
-                <div class="rounded-md bg-green-50 p-4 mb-4">
-                    <div class="text-sm text-green-700">
-                        <%= success %>
-                    </div>
-                </div>
-                <% } %>
-                <% if (locals.error) { %>
-                <div class="rounded-md bg-red-50 p-4 mb-4">
-                    <div class="text-sm text-red-700">
-                        <%= error %>
-                    </div>
-                </div>
-                <% } %>
-
-                <div class="max-w-2xl mx-auto">
-                    <h1 class="text-2xl font-bold text-gray-900 mb-6">Editar Colaborador</h1>
-
-                    <form action="/colaboradores/edit/<%= colaborador.id %>" method="POST" class="space-y-6">
-                        <div>
-                            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" value="<%= colaborador.nombre %>" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" value="<%= colaborador.apellido %>" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="rol" class="block text-sm font-medium text-gray-700">Rol</label>
-                            <select name="rol" id="rol" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="Profesor" <%= colaborador.rol === 'Profesor' ? 'selected' : '' %>>Profesor</option>
-                                <option value="Administrador" <%= colaborador.rol === 'Administrador' ? 'selected' : '' %>>Administrador</option>
-                                <option value="Recepcionista" <%= colaborador.rol === 'Recepcionista' ? 'selected' : '' %>>Recepcionista</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" name="email" id="email" value="<%= colaborador.email %>" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                            <input type="tel" name="telefono" id="telefono" value="<%= colaborador.telefono %>" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div class="flex justify-end space-x-3">
-                            <a href="/colaboradores" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Cancelar
-                            </a>
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Guardar Cambios
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    <!-- Main Content -->
+    <main class="flex-1 max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="/colaboradores" class="text-gray-500 hover:text-gray-700 mr-4">
+                    <span class="material-icons">arrow_back</span>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">Editar Colaborador</h1>
             </div>
+            <p class="text-gray-600">Modifica la información del miembro del equipo</p>
+        </div>
+
+        <!-- Flash Messages -->
+        <% if (locals.error) { %>
+            <div class="alert alert-error">
+                <span class="material-icons">error</span>
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (locals.success) { %>
+            <div class="alert alert-success">
+                <span class="material-icons">check_circle</span>
+                <%= success %>
+            </div>
+        <% } %>
+
+        <!-- Form -->
+        <div class="material-card p-8">
+            <form action="/colaboradores/edit/<%= colaborador.id %>" method="POST" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nombre *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nombre" 
+                            name="nombre" 
+                            value="<%= colaborador.nombre %>"
+                            required 
+                            class="material-input w-full"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="apellido" class="block text-sm font-medium text-gray-700 mb-2">
+                            Apellido *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="apellido" 
+                            name="apellido" 
+                            value="<%= colaborador.apellido %>"
+                            required 
+                            class="material-input w-full"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <label for="rol" class="block text-sm font-medium text-gray-700 mb-2">
+                        Rol *
+                    </label>
+                    <select 
+                        id="rol" 
+                        name="rol" 
+                        required 
+                        class="material-input w-full"
+                    >
+                        <option value="">Seleccionar rol...</option>
+                        <option value="Entrenador" <%= colaborador.rol === 'Entrenador' ? 'selected' : '' %>>Entrenador</option>
+                        <option value="Recepcionista" <%= colaborador.rol === 'Recepcionista' ? 'selected' : '' %>>Recepcionista</option>
+                        <option value="Administrador" <%= colaborador.rol === 'Administrador' ? 'selected' : '' %>>Administrador</option>
+                        <option value="Nutricionista" <%= colaborador.rol === 'Nutricionista' ? 'selected' : '' %>>Nutricionista</option>
+                        <option value="Fisioterapeuta" <%= colaborador.rol === 'Fisioterapeuta' ? 'selected' : '' %>>Fisioterapeuta</option>
+                        <option value="Profesor" <%= colaborador.rol === 'Profesor' ? 'selected' : '' %>>Profesor</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email *
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        value="<%= colaborador.email %>"
+                        required 
+                        class="material-input w-full"
+                    >
+                </div>
+
+                <div>
+                    <label for="telefono" class="block text-sm font-medium text-gray-700 mb-2">
+                        Teléfono *
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="telefono" 
+                        name="telefono" 
+                        value="<%= colaborador.telefono %>"
+                        required 
+                        class="material-input w-full"
+                    >
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6">
+                    <a href="/colaboradores" class="material-button secondary">
+                        <span class="material-icons text-sm">cancel</span>
+                        Cancelar
+                    </a>
+                    <button type="submit" class="material-button">
+                        <span class="material-icons text-sm">save</span>
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer-bg border-t border-gray-700 mt-auto">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="text-white text-sm">
+                    Desarrollado por Alana Stefanov, Software Engineer
+                </div>
+                <div class="flex items-center">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="h-6 w-6 mr-3">
+                </div>
+                <div class="text-white text-sm">
+                    ©2025 CDF Entrenamiento Elite. Todos los derechos reservados
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
