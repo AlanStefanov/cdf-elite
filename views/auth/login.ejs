@@ -27,13 +27,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                url('https://i.ibb.co/FQJBs2g/unnamed-2.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
         }
         
         .login-card {
@@ -42,18 +35,8 @@
             padding: 40px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background-image: url('https://i.ibb.co/9kcT37yD/unnamed-1.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
         }
         
         .welcome-title {
@@ -194,9 +177,7 @@
 <body>
     <div class="login-container">
         <div class="login-card">
-            <div class="logo"></div>
-            <h1 class="welcome-title">Bienvenido</h1>
-            <p class="welcome-subtitle">Accede a tu cuenta de CDF</p>
+            <img src="https://i.ibb.co/FQJBs2g/unnamed-2.png" alt="CD Logo" style="width: 200px; height: auto; margin: 0 auto 20px; display: block;">
             
             <!-- Flash Messages -->
             <% if (typeof error !== 'undefined' && error) { %>
