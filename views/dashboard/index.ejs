@@ -122,20 +122,57 @@
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="stat-card">
+                <div class="text-white mb-2">
+                    <i class="fas fa-users text-2xl"></i>
+                </div>
                 <div class="stat-number"><%= stats.totalAlumnos %></div>
                 <div class="stat-label">Total Alumnos</div>
             </div>
             <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="text-white mb-2">
+                    <i class="fas fa-check-circle text-2xl"></i>
+                </div>
                 <div class="stat-number"><%= stats.activos %></div>
                 <div class="stat-label">Membresías Activas</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
+                <div class="text-white mb-2">
+                    <i class="fas fa-times-circle text-2xl"></i>
+                </div>
+                <div class="stat-number"><%= stats.vencidos %></div>
+                <div class="stat-label">Membresías Vencidas</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <div class="text-white mb-2">
+                    <i class="fas fa-clipboard-list text-2xl"></i>
+                </div>
                 <div class="stat-number"><%= stats.totalPlanes %></div>
                 <div class="stat-label">Planes Disponibles</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                <div class="stat-number"><%= stats.totalColaboradores %></div>
-                <div class="stat-label">Colaboradores</div>
+        </div>
+
+        <!-- Revenue Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="text-white mb-4">
+                    <i class="fas fa-dollar-sign text-2xl"></i>
+                </div>
+                <div class="stat-number">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></div>
+                <div class="stat-label">Recaudación Mensual</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                <div class="text-white mb-4">
+                    <i class="fas fa-calendar-day text-2xl"></i>
+                </div>
+                <div class="stat-number">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></div>
+                <div class="stat-label">Recaudación Hoy</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);">
+                <div class="text-white mb-4">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                </div>
+                <div class="stat-number"><%= stats.porVencer %></div>
+                <div class="stat-label">Por Vencer (7 días)</div>
             </div>
         </div>
 
