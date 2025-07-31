@@ -1,228 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/design-system.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--cdf-light);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .flex {
-            display: flex;
-        }
-        
-        .flex-col {
-            flex-direction: column;
-        }
-        
-        .items-center {
-            align-items: center;
-        }
-        
-        .justify-center {
-            justify-content: center;
-        }
-        
-        .justify-between {
-            justify-content: space-between;
-        }
-        
-        .h-10 {
-            height: 2.5rem;
-        }
-        
-        .min-h-screen {
-            min-height: 100vh;
-        }
-        
-        .flex-1 {
-            flex: 1;
-        }
-        
-        .bg-white {
-            background-color: white;
-        }
-        
-        .rounded-lg {
-            border-radius: 0.5rem;
-        }
-        
-        .shadow-lg {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .p-8 {
-            padding: 2rem;
-        }
-        
-        .w-full {
-            width: 100%;
-        }
-        
-        .max-w-md {
-            max-width: 28rem;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .mb-8 {
-            margin-bottom: 2rem;
-        }
-        
-        .mb-6 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-        
-        .text-3xl {
-            font-size: 1.875rem;
-            line-height: 2.25rem;
-        }
-        
-        .font-bold {
-            font-weight: 700;
-        }
-        
-        .text-gray-900 {
-            color: #111827;
-        }
-        
-        .text-gray-600 {
-            color: #4b5563;
-        }
-        
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-        
-        .bg-red-100 {
-            background-color: #fee2e2;
-        }
-        
-        .border-red-400 {
-            border-color: #f87171;
-        }
-        
-        .text-red-700 {
-            color: #b91c1c;
-        }
-        
-        .border {
-            border-width: 1px;
-        }
-        
-        .px-4 {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        .py-3 {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-        
-        .text-sm {
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-        }
-        
-        .mt-auto {
-            margin-top: auto;
-        }
-    </style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="/css/output.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .material-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.3s ease;
-        }
-        .material-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .material-input {
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 12px 16px;
-            font-size: 16px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .material-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        .material-button {
-            background: linear-gradient(45deg, var(--cdf-primary), #b91c1c);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .material-button:hover {
-            background: linear-gradient(45deg, #b91c1c, #991b1b);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-        }
-        .alert {
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .alert-error {
-            background-color: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-        }
-        .alert-success {
-            background-color: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #16a34a;
-        }
-    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col">
     <!-- Header CDF -->
     <header class="cdf-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center items-center h-10">
+            <div class="flex justify-center items-center h-16">
                 <a href="#" class="cdf-logo">
-                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" style="height: 40px; width: auto;">
+                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" class="h-12 w-auto">
                     <span class="cdf-logo-text">Entrenamiento Elite</span>
                 </a>
             </div>
@@ -231,33 +22,38 @@
 
     <!-- Main Content -->
     <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full">
-            <div class="text-center mb-8">
-                <div class="flex justify-center items-center mb-6">
-                    <img src="/images/cdf-logo-new.png" alt="CDF Logo" style="height: 60px; width: auto;">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo y título -->
+            <div class="text-center">
+                <div class="flex justify-center mb-8">
+                    <div class="bg-white p-6 rounded-full shadow-lg">
+                        <img src="/images/cdf-logo-new.png" alt="CDF Logo" class="h-16 w-auto">
+                    </div>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900">Iniciar Sesión</h2>
-                <p class="mt-2 text-sm text-gray-600">Accede a tu cuenta de CDF</p>
+                <h2 class="text-4xl font-bold text-gray-900 mb-2">Bienvenido</h2>
+                <p class="text-lg text-gray-600">Accede a tu cuenta de CDF</p>
             </div>
-            
-            <div class="material-card p-8 w-full">
+
+            <!-- Formulario de login -->
+            <div class="material-card p-8">
                 <!-- Flash Messages -->
                 <% if (typeof error !== 'undefined' && error) { %>
                     <div class="alert alert-error">
-                        <span class="material-icons">error</span>
+                        <span class="material-icons text-red-500">error</span>
                         <%= error %>
                     </div>
                 <% } %>
                 <% if (typeof success !== 'undefined' && success) { %>
                     <div class="alert alert-success">
-                        <span class="material-icons">check_circle</span>
+                        <span class="material-icons text-green-500">check_circle</span>
                         <%= success %>
                     </div>
                 <% } %>
 
                 <form action="/login" method="POST" class="space-y-6">
-                    <div>
-                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                    <div class="space-y-2">
+                        <label for="username" class="block text-sm font-semibold text-gray-700">
+                            <span class="material-icons inline-block text-lg mr-2 align-middle">person</span>
                             Usuario
                         </label>
                         <input 
@@ -265,13 +61,15 @@
                             id="username" 
                             name="username" 
                             required 
-                            class="material-input w-full"
+                            class="cdf-input"
                             placeholder="Ingresa tu usuario"
+                            autocomplete="username"
                         >
                     </div>
 
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                    <div class="space-y-2">
+                        <label for="password" class="block text-sm font-semibold text-gray-700">
+                            <span class="material-icons inline-block text-lg mr-2 align-middle">lock</span>
                             Contraseña
                         </label>
                         <input 
@@ -279,17 +77,27 @@
                             id="password" 
                             name="password" 
                             required 
-                            class="material-input w-full"
+                            class="cdf-input"
                             placeholder="Ingresa tu contraseña"
+                            autocomplete="current-password"
                         >
                     </div>
 
-                    <div>
-                        <button type="submit" class="material-button w-full">
-                            Ingresar
+                    <div class="pt-4">
+                        <button type="submit" class="material-button w-full flex items-center justify-center gap-2">
+                            <span class="material-icons">login</span>
+                            INGRESAR AL SISTEMA
                         </button>
                     </div>
                 </form>
+
+                <!-- Info adicional -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <p class="text-center text-sm text-gray-500">
+                        <span class="material-icons inline-block text-sm mr-1 align-middle">security</span>
+                        Acceso seguro al sistema CDF
+                    </p>
+                </div>
             </div>
         </div>
     </main>
@@ -300,9 +108,9 @@
             <div class="cdf-footer-left">
                 © 2025 CDF Entrenamiento Elite
             </div>
-            <div>
+            <div class="flex justify-center">
                 <a href="#" class="cdf-footer-logo">
-                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" style="height: 30px; width: auto;">
+                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" class="h-8 w-auto">
                 </a>
             </div>
             <div class="cdf-footer-right">

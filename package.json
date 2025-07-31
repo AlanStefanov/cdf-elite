@@ -34,7 +34,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"
