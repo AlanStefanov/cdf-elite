@@ -179,7 +179,7 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         .material-button {
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(45deg, var(--cdf-primary), #b91c1c);
             color: white;
             border: none;
             border-radius: 4px;
@@ -192,9 +192,9 @@
             letter-spacing: 0.5px;
         }
         .material-button:hover {
-            background: linear-gradient(45deg, #1d4ed8, #1e40af);
+            background: linear-gradient(45deg, #b91c1c, #991b1b);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         .alert {
             padding: 12px 16px;
@@ -230,17 +230,17 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div class="text-center">
-                <div class="flex justify-center items-center gap-4 mb-6">
-                    <img src="/images/cdf-logo-new.png" alt="CDF Logo" class="h-12 w-auto">
+    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="flex justify-center items-center mb-6">
+                    <img src="/images/cdf-logo-new.png" alt="CDF Logo" style="height: 60px; width: auto;">
                 </div>
-                <h2 class="mt-6 text-3xl font-bold text-gray-900">Iniciar Sesión</h2>
+                <h2 class="text-3xl font-bold text-gray-900">Iniciar Sesión</h2>
                 <p class="mt-2 text-sm text-gray-600">Accede a tu cuenta de CDF</p>
             </div>
             
-            <div class="material-card p-8">
+            <div class="material-card p-8 w-full">
                 <!-- Flash Messages -->
                 <% if (typeof error !== 'undefined' && error) { %>
                     <div class="alert alert-error">
@@ -294,16 +294,19 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t mt-auto">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    © 2025 CDF Entrenamiento Elite. Todos los derechos reservados.
-                </p>
-                <p class="text-sm text-gray-500 mt-1">
-                    Desarrollado por Alan Stefanov, Software Engineer.
-                </p>
+    <!-- Footer CDF -->
+    <footer class="cdf-footer">
+        <div class="cdf-footer-content">
+            <div class="cdf-footer-left">
+                © 2025 CDF Entrenamiento Elite
+            </div>
+            <div>
+                <a href="#" class="cdf-footer-logo">
+                    <img src="/images/cdf-logo-header.png" alt="CDF Logo" style="height: 30px; width: auto;">
+                </a>
+            </div>
+            <div class="cdf-footer-right">
+                Desarrollado por Alan Stefanov
             </div>
         </div>
     </footer>
