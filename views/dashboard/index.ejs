@@ -159,12 +159,12 @@
                         <i class="fas fa-dollar-sign text-2xl"></i>
                     </div>
                     <button onclick="toggleMoney('mensual')" class="text-white hover:text-gray-200 transition-colors">
-                        <i id="eye-mensual" class="fas fa-eye text-lg"></i>
+                        <i id="eye-mensual" class="fas fa-eye-slash text-lg"></i>
                     </button>
                 </div>
                 <div class="stat-number">
-                    <span id="amount-mensual">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></span>
-                    <span id="hidden-mensual" style="display: none;">$ ***</span>
+                    <span id="amount-mensual" style="display: none;">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></span>
+                    <span id="hidden-mensual">$ ***</span>
                 </div>
                 <div class="stat-label">Recaudación Mensual</div>
             </div>
@@ -174,12 +174,12 @@
                         <i class="fas fa-calendar-day text-2xl"></i>
                     </div>
                     <button onclick="toggleMoney('hoy')" class="text-white hover:text-gray-200 transition-colors">
-                        <i id="eye-hoy" class="fas fa-eye text-lg"></i>
+                        <i id="eye-hoy" class="fas fa-eye-slash text-lg"></i>
                     </button>
                 </div>
                 <div class="stat-number">
-                    <span id="amount-hoy">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></span>
-                    <span id="hidden-hoy" style="display: none;">$ ***</span>
+                    <span id="amount-hoy" style="display: none;">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></span>
+                    <span id="hidden-hoy">$ ***</span>
                 </div>
                 <div class="stat-label">Recaudación Hoy</div>
             </div>

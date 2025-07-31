@@ -145,18 +145,26 @@
             <!-- Recaudación Mensual -->
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                            </svg>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Recaudado este mes</dt>
+                                    <dd class="text-lg font-medium text-gray-900">
+                                        <span id="amount-recaudacion" style="display: none;">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-recaudacion">$ ***</span>
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Recaudado este mes</dt>
-                                <dd class="text-lg font-medium text-gray-900">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></dd>
-                            </dl>
-                        </div>
+                        <button onclick="toggleMoney('recaudacion')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            <i id="eye-recaudacion" class="fas fa-eye-slash text-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -164,18 +172,26 @@
             <!-- Ingresos Potenciales -->
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                            </svg>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Ingresos Potenciales</dt>
+                                    <dd class="text-lg font-medium text-gray-900">
+                                        <span id="amount-potenciales" style="display: none;">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-potenciales">$ ***</span>
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Ingresos Potenciales</dt>
-                                <dd class="text-lg font-medium text-gray-900">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></dd>
-                            </dl>
-                        </div>
+                        <button onclick="toggleMoney('potenciales')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            <i id="eye-potenciales" class="fas fa-eye-slash text-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -378,6 +394,25 @@
                     row.style.display = 'none';
                 }
             });
+        }
+
+        // Función para alternar mostrar/ocultar dinero
+        function toggleMoney(type) {
+            const amountElement = document.getElementById(`amount-${type}`);
+            const hiddenElement = document.getElementById(`hidden-${type}`);
+            const eyeIcon = document.getElementById(`eye-${type}`);
+
+            if (amountElement.style.display === 'none') {
+                // Mostrar dinero
+                amountElement.style.display = 'inline';
+                hiddenElement.style.display = 'none';
+                eyeIcon.className = 'fas fa-eye text-lg';
+            } else {
+                // Ocultar dinero
+                amountElement.style.display = 'none';
+                hiddenElement.style.display = 'inline';
+                eyeIcon.className = 'fas fa-eye-slash text-lg';
+            }
         }
 
         // Load data when page loads
