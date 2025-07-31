@@ -154,17 +154,33 @@
         <!-- Revenue Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                <div class="text-white mb-4">
-                    <i class="fas fa-dollar-sign text-2xl"></i>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-white">
+                        <i class="fas fa-dollar-sign text-2xl"></i>
+                    </div>
+                    <button onclick="toggleMoney('mensual')" class="text-white hover:text-gray-200 transition-colors">
+                        <i id="eye-mensual" class="fas fa-eye text-lg"></i>
+                    </button>
                 </div>
-                <div class="stat-number">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></div>
+                <div class="stat-number">
+                    <span id="amount-mensual">$<%= stats.recaudacionMensual.toLocaleString('es-AR') %></span>
+                    <span id="hidden-mensual" style="display: none;">$ ***</span>
+                </div>
                 <div class="stat-label">Recaudación Mensual</div>
             </div>
             <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
-                <div class="text-white mb-4">
-                    <i class="fas fa-calendar-day text-2xl"></i>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-white">
+                        <i class="fas fa-calendar-day text-2xl"></i>
+                    </div>
+                    <button onclick="toggleMoney('hoy')" class="text-white hover:text-gray-200 transition-colors">
+                        <i id="eye-hoy" class="fas fa-eye text-lg"></i>
+                    </button>
                 </div>
-                <div class="stat-number">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></div>
+                <div class="stat-number">
+                    <span id="amount-hoy">$<%= stats.recaudacionHoy.toLocaleString('es-AR') %></span>
+                    <span id="hidden-hoy" style="display: none;">$ ***</span>
+                </div>
                 <div class="stat-label">Recaudación Hoy</div>
             </div>
             <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);">
@@ -306,8 +322,27 @@
             <% } %>
         </div>
 
-        <!-- Script para notificaciones de WhatsApp -->
+        <!-- Script para mostrar/ocultar dinero y notificaciones de WhatsApp -->
         <script>
+            // Función para alternar mostrar/ocultar dinero
+            function toggleMoney(type) {
+                const amountElement = document.getElementById(`amount-${type}`);
+                const hiddenElement = document.getElementById(`hidden-${type}`);
+                const eyeIcon = document.getElementById(`eye-${type}`);
+
+                if (amountElement.style.display === 'none') {
+                    // Mostrar dinero
+                    amountElement.style.display = 'inline';
+                    hiddenElement.style.display = 'none';
+                    eyeIcon.className = 'fas fa-eye text-lg';
+                } else {
+                    // Ocultar dinero
+                    amountElement.style.display = 'none';
+                    hiddenElement.style.display = 'inline';
+                    eyeIcon.className = 'fas fa-eye-slash text-lg';
+                }
+            }
+
             function notificarWhatsApp(telefono, nombre, diasRestantes) {
                 // Limpiar el número de teléfono (remover espacios, guiones, etc.)
                 const telefonoLimpio = telefono.replace(/\D/g, '');
