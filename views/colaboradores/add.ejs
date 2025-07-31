@@ -12,6 +12,9 @@
         body {
             font-family: 'Roboto', sans-serif;
         }
+        .header-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
         .material-card {
             background: white;
             border-radius: 8px;
@@ -82,6 +85,14 @@
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
     <!-- Header -->
+    <header class="header-bg shadow-lg border-b border-gray-700"></header>
+
+    <style>
+        .header-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
+    </style>
+
     <header class="header-bg shadow-lg border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
