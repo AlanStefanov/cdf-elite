@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,112 +6,33 @@
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        .cdf-header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .cdf-footer {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        }
-        .cdf-logo {
-            color: #ef4444;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        .cdf-button-primary {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .cdf-button-primary:hover {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
-        }
-        .cdf-button-secondary {
-            background: transparent;
-            color: #ef4444;
-            border: 2px solid #ef4444;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .cdf-button-secondary:hover {
-            background: #ef4444;
-            color: white;
-            transform: translateY(-1px);
-        }
-        .cdf-button-dark {
-            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .cdf-button-dark:hover {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            transform: translateY(-1px);
-        }
-        .cdf-card {
+        .card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
-        .nav-link {
-            color: #d1d5db;
-            transition: all 0.3s ease;
-            padding: 8px 16px;
-            border-radius: 6px;
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
-        .nav-link:hover {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
-        .nav-link.active {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.15);
-        }
-        .data-grid {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .grid-header {
+        .table-header {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            padding: 16px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
         }
-        .grid-row {
+        .table-row {
             border-bottom: 1px solid #f1f5f9;
             transition: all 0.2s ease;
         }
-        .grid-row:hover {
-            background: #f8fafc;
+        .table-row:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
         }
         .status-badge {
             padding: 4px 12px;
@@ -120,307 +40,407 @@
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .status-active {
-            background: #dcfce7;
+        .status-activa {
+            background-color: #dcfce7;
             color: #166534;
         }
-        .status-inactive {
-            background: #fef2f2;
-            color: #991b1b;
+        .status-vencida {
+            background-color: #fef2f2;
+            color: #dc2626;
         }
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
+        .status-por-vencer {
+            background-color: #fef3c7;
+            color: #d97706;
         }
-        .revenue-card {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        .search-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="cdf-header shadow-lg">
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-4">
-                    <div class="cdf-logo flex items-center">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard" class="text-white text-xl font-bold">
                         <i class="fas fa-dumbbell mr-2"></i>
-                        CDF
-                    </div>
-                    <span class="text-white text-sm font-medium">Entrenamiento Elite</span>
-                    <div class="flex items-center space-x-2 ml-6">
-                        <i class="fas fa-database text-gray-400 text-sm"></i>
-                        <span class="text-gray-300 text-sm">DB</span>
-                    </div>
+                        CDF Entrenamiento Elite
+                    </a>
                 </div>
-                
-                <nav class="flex items-center space-x-6">
-                    <a href="/alumnos" class="nav-link active">
+                <div class="flex items-center space-x-6">
+                    <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                    </a>
+                    <a href="/alumnos" class="text-white hover:text-gray-200 transition-colors font-semibold">
                         <i class="fas fa-users mr-1"></i>Alumnos
                     </a>
-                    <a href="/planes" class="nav-link">
+                    <a href="/planes" class="text-white hover:text-gray-200 transition-colors">
                         <i class="fas fa-clipboard-list mr-1"></i>Planes
                     </a>
-                    <a href="/colaboradores" class="nav-link">
+                    <a href="/colaboradores" class="text-white hover:text-gray-200 transition-colors">
                         <i class="fas fa-user-tie mr-1"></i>Colaboradores
                     </a>
-                    <a href="/logout" class="cdf-button-primary ml-4">
-                        Cerrar sesión
+                    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión
                     </a>
-                </nav>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 w-full">
-        <!-- Page Header -->
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Gestión de Alumnos</h1>
-                <p class="mt-2 text-gray-600">Administra los miembros del gimnasio CDF</p>
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Gestión de Alumnos</h1>
+            <div class="flex space-x-4">
+                <a href="/alumnos/add" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-200">
+                    <i class="fas fa-plus mr-2"></i>Agregar Alumno
+                </a>
             </div>
-            <a href="/alumnos/add" class="cdf-button-primary">
-                <i class="fas fa-plus"></i>
-                Nuevo Alumno
-            </a>
         </div>
 
-        <!-- Revenue Summary -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="cdf-card revenue-card p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-semibold text-gray-900">Recaudación Mensual</h3>
-                    <button onclick="toggleVisibility('monthly')" class="text-gray-500 hover:text-gray-700">
-                        <i id="monthly-icon" class="fas fa-eye-slash"></i>
-                    </button>
-                </div>
-                <div class="space-y-2">
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+            <!-- Recaudación Mensual -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Total recaudado este mes</span>
-                        <span id="monthly-amount" class="text-2xl font-bold text-blue-600">$ ***</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Membresías pagadas</span>
-                        <span class="text-sm font-medium text-gray-900"><%= membresiasPagadas %></span>
-                    </div>
-                </div>
-                <div class="hidden" id="monthly-real">$<%= recaudacionMensual.toLocaleString('es-AR') %></div>
-            </div>
-
-            <div class="cdf-card p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Estadísticas Generales</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Total de alumnos</span>
-                        <span class="text-lg font-bold text-gray-900"><%= membresiasTotales %></span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Ingresos potenciales</span>
-                        <button onclick="toggleVisibility('potential')" class="flex items-center space-x-2">
-                            <span id="potential-amount" class="text-lg font-bold text-green-600">$ ***</span>
-                            <i id="potential-icon" class="fas fa-eye-slash text-gray-500"></i>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Recaudado este mes</dt>
+                                    <dd class="text-lg font-medium text-gray-900">
+                                        <span id="amount-recaudacion" style="display: none;">$<%= recaudacionMensual.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-recaudacion">$ ***</span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <button onclick="toggleMoney('recaudacion')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            <i id="eye-recaudacion" class="fas fa-eye-slash text-lg"></i>
                         </button>
                     </div>
-                    <div class="hidden" id="potential-real">$<%= ingresosPotenciales.toLocaleString('es-AR') %></div>
+                </div>
+            </div>
+
+            <!-- Ingresos Potenciales -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Ingresos Potenciales</dt>
+                                    <dd class="text-lg font-medium text-gray-900">
+                                        <span id="amount-potenciales" style="display: none;">$<%= ingresosPotenciales.toLocaleString('es-AR', {minimumFractionDigits: 2}) %></span>
+                                        <span id="hidden-potenciales">$ ***</span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <button onclick="toggleMoney('potenciales')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            <i id="eye-potenciales" class="fas fa-eye-slash text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membresías Pagadas -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Membresías Pagadas</dt>
+                                <dd class="text-lg font-medium text-gray-900"><%= membresiasPagadas %> / <%= membresiasTotales %></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Porcentaje de Pago -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">% de Pagos</dt>
+                                <dd class="text-lg font-medium text-gray-900"><%= membresiasTotales > 0 ? Math.round((membresiasPagadas / membresiasTotales) * 100) : 0 %>%</dd>
+                            </dl>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Data Grid -->
-        <div class="data-grid">
-            <div class="grid-header">
-                <h3 class="text-lg font-semibold text-gray-900">Lista de Alumnos</h3>
-                <p class="text-sm text-gray-600 mt-1">Gestiona la información de todos los miembros</p>
-            </div>
-            
-            <div class="p-6">
-                <div id="studentsContainer">
-                    <div class="flex items-center justify-center py-12">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
-                        <span class="ml-3 text-gray-600">Cargando alumnos...</span>
+        <!-- Students Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-900">Lista de Alumnos</h3>
+                    <div class="flex items-center space-x-3">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Buscar por nombre, DNI o email..." 
+                            class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onkeyup="searchStudents()"
+                        >
+                        <button 
+                            onclick="document.getElementById('statusFilter').value = 'all'; searchStudents();"
+                            class="bg-gray-100 text-gray-700 px-3 py-2 rounded-md text-sm hover:bg-gray-200"
+                        >
+                            Limpiar
+                        </button>
                     </div>
                 </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellido</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DNI</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vencimiento</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="noResults" class="hidden p-8 text-center">
+                <p class="text-gray-500">No se encontraron alumnos</p>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="cdf-footer mt-auto">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-300 text-sm">Desarrollado por Alan Stefanov, Software Engineer</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="cdf-logo">CDF</div>
-                    <span class="text-gray-300 text-sm">©2025 CDF Entrenamiento Elite. Todos los derechos reservados</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        function toggleVisibility(type) {
-            const icon = document.getElementById(type + '-icon');
-            const amount = document.getElementById(type + '-amount');
-            const real = document.getElementById(type + '-real');
-            
-            if (icon.classList.contains('fa-eye-slash')) {
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-                amount.textContent = real.textContent;
+        let revenueVisible = false;
+
+        function toggleMoney(type) {
+            const amountElement = document.getElementById(`amount-${type}`);
+            const hiddenElement = document.getElementById(`hidden-${type}`);
+            const eyeIcon = document.getElementById(`eye-${type}`);
+
+            if (amountElement.style.display === 'none') {
+                // Mostrar dinero
+                amountElement.style.display = 'inline';
+                hiddenElement.style.display = 'none';
+                eyeIcon.className = 'fas fa-eye text-lg';
             } else {
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-                amount.textContent = '$ ***';
+                // Ocultar dinero
+                amountElement.style.display = 'none';
+                hiddenElement.style.display = 'inline';
+                eyeIcon.className = 'fas fa-eye-slash text-lg';
             }
         }
-
-        function deleteAlumno(id, nombre) {
-            if (confirm(`¿Estás seguro de eliminar al alumno ${nombre}?`)) {
-                fetch(`/alumnos/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        loadStudents();
-                    } else {
-                        alert('Error al eliminar el alumno');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al eliminar el alumno');
-                });
-            }
-        }
-
-        function getStatusBadge(status) {
-            const statusMap = {
-                'Activa': { class: 'status-active', text: 'Activa' },
-                'Inactiva': { class: 'status-inactive', text: 'Inactiva' },
-                'Vencida': { class: 'status-inactive', text: 'Vencida' },
-                'Pendiente': { class: 'status-pending', text: 'Pendiente' }
-            };
-            
-            const statusInfo = statusMap[status] || { class: 'status-pending', text: status };
-            return `<span class="status-badge ${statusInfo.class}">${statusInfo.text}</span>`;
-        }
-
+        // Load students data
         function loadStudents() {
-            console.log('DOM loaded, loading students...');
             fetch('/alumnos/api')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     console.log('Data received:', data);
-                    const container = document.getElementById('studentsContainer');
-                    
-                    if (data.length === 0) {
-                        container.innerHTML = `
-                            <div class="text-center py-12">
-                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-users text-gray-400 text-2xl"></i>
-                                </div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-2">No hay alumnos registrados</h3>
-                                <p class="text-gray-600 mb-4">Comienza agregando el primer alumno al sistema</p>
-                                <a href="/alumnos/add" class="cdf-button-primary">
-                                    <i class="fas fa-plus"></i>
-                                    Agregar Primer Alumno
-                                </a>
-                            </div>
-                        `;
-                        return;
+                    if (Array.isArray(data)) {
+                        updateTable(data);
+                        updateStats(data);
+                    } else {
+                        console.error('Expected array but received:', typeof data, data);
+                        updateTable([]);
+                        updateStats([]);
                     }
-                    
-                    let html = `
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full">
-                                <thead>
-                                    <tr class="border-b border-gray-200">
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alumno</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contacto</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vencimiento</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                    `;
-                    
-                    data.forEach(alumno => {
-                        const fechaVencimiento = new Date(alumno.fecha_vencimiento_membresia);
-                        const fechaFormateada = fechaVencimiento.toLocaleDateString('es-ES');
-                        
-                        html += `
-                            <tr class="grid-row">
-                                <td class="px-6 py-4">
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-900">${alumno.nombre} ${alumno.apellido}</div>
-                                        <div class="text-sm text-gray-500">DNI: ${alumno.dni}</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">${alumno.email}</div>
-                                    <div class="text-sm text-gray-500">${alumno.telefono}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">${alumno.plan ? alumno.plan.nombre_plan : 'Sin plan'}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${getStatusBadge(alumno.estado_membresia)}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">${fechaFormateada}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex space-x-2">
-                                        <a href="/alumnos/edit/${alumno.id}" class="text-blue-600 hover:text-blue-800">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button onclick="deleteAlumno(${alumno.id}, '${alumno.nombre} ${alumno.apellido}')" class="text-red-600 hover:text-red-800">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                    
-                    html += `
-                                </tbody>
-                            </table>
-                        </div>
-                    `;
-                    
-                    container.innerHTML = html;
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('studentsContainer').innerHTML = `
-                        <div class="text-center py-12">
-                            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-2">Error al cargar alumnos</h3>
-                            <p class="text-gray-600 mb-4">No se pudieron cargar los datos de los alumnos</p>
-                            <button onclick="loadStudents()" class="cdf-button-secondary">
-                                <i class="fas fa-refresh"></i>
-                                Reintentar
-                            </button>
-                        </div>
-                    `;
+                    console.error('Error loading data:', error);
+                    updateTable([]);
+                    updateStats([]);
                 });
         }
 
-        // Load students when page loads
-        document.addEventListener('DOMContentLoaded', loadStudents);
+        function updateTable(alumnos) {
+            const tbody = document.getElementById('studentsTableBody');
+            const noResults = document.getElementById('noResults');
+
+            if (!tbody) {
+                console.error('Table body not found');
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            if (alumnos.length === 0) {
+                if (noResults) noResults.classList.remove('hidden');
+                return;
+            }
+
+            if (noResults) noResults.classList.add('hidden');
+
+            alumnos.forEach(alumno => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+
+                let estadoBadge = '';
+                if (alumno.estado_membresia === 'Activa') {
+                    estadoBadge = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Activa</span>';
+                } else if (alumno.estado_membresia === 'Por vencer') {
+                    estadoBadge = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Por vencer</span>';
+                } else if (alumno.estado_membresia === 'Vencida') {
+                    estadoBadge = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Vencida</span>';
+                }
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${alumno.nombre || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.apellido || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.dni || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.email || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.telefono || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.plan || 'Sin plan'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${alumno.fecha_vencimiento_membresia || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${estadoBadge}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="/alumnos/edit/${alumno.id}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStats(alumnos) {
+            const activos = alumnos.filter(a => a.estado_membresia === 'Activa').length;
+            const vencidos = alumnos.filter(a => a.estado_membresia === 'Vencida').length;
+            const porVencer = alumnos.filter(a => a.estado_membresia === 'Por vencer').length;
+            const total = alumnos.length;
+
+            const activosElement = document.getElementById('activosCount');
+            const vencidosElement = document.getElementById('vencidosCount');
+            const porVencerElement = document.getElementById('porVencerCount');
+            const totalElement = document.getElementById('totalCount');
+
+            if (activosElement) activosElement.textContent = activos;
+            if (vencidosElement) vencidosElement.textContent = vencidos;
+            if (porVencerElement) porVencerElement.textContent = porVencer;
+            if (totalElement) totalElement.textContent = total;
+        }
+
+        // Search functionality
+        function searchStudents() {
+            const searchInput = document.getElementById('searchInput');
+            if (!searchInput) return;
+
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = document.querySelectorAll('#studentsTableBody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Función para alternar mostrar/ocultar dinero
+        
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Inicializar con valores ocultos al cargar la página
+            const amountRecaudacion = document.getElementById('amount-recaudacion');
+            const hiddenRecaudacion = document.getElementById('hidden-recaudacion');
+            const eyeRecaudacion = document.getElementById('eye-recaudacion');
+
+            if (amountRecaudacion) amountRecaudacion.style.display = 'none';
+            if (hiddenRecaudacion) hiddenRecaudacion.style.display = 'inline';
+            if (eyeRecaudacion) eyeRecaudacion.className = 'fas fa-eye-slash text-lg';
+
+            const amountPotenciales = document.getElementById('amount-potenciales');
+            const hiddenPotenciales = document.getElementById('hidden-potenciales');
+            const eyePotenciales = document.getElementById('eye-potenciales');
+
+            if (amountPotenciales) amountPotenciales.style.display = 'none';
+            if (hiddenPotenciales) hiddenPotenciales.style.display = 'inline';
+            if (eyePotenciales) eyePotenciales.className = 'fas fa-eye-slash text-lg';
+
+            console.log('DOM loaded, loading students...');
+            loadStudents();
+        });
     </script>
 </body>
 </html>
