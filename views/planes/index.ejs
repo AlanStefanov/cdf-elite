@@ -16,6 +16,9 @@
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        .footer-bg {
+            background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
         .material-card {
             background: white;
             border-radius: 8px;
@@ -84,10 +87,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="/dashboard" class="text-white text-xl font-bold">
-                        <i class="fas fa-dumbbell mr-2"></i>
-                        CDF Entrenamiento Elite
-                    </a>
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
+                    <span class="text-white text-xl font-bold">Entrenamiento elite</span>
                 </div>
                 <div class="flex items-center space-x-6">
                     <a href="/dashboard" class="text-white hover:text-gray-200 transition-colors font-semibold">
@@ -218,10 +219,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-8">
+    <footer class="footer-bg border-t border-gray-700 mt-8">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="text-center text-gray-500 text-sm">
-                &copy; 2024 CDF Entrenamiento Elite. Todos los derechos reservados.
+            <div class="flex justify-between items-center">
+                <div class="text-white text-sm">
+                    Desarrollado por Alana Stefanov, Software Engineer
+                </div>
+                <div class="flex items-center">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
+                </div>
+                <div class="text-white text-sm">
+                    ©2025 CDF Entrenamiento Elite. Todos los derechos reservados
+                </div>
             </div>
         </div>
     </footer>

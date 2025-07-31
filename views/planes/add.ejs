@@ -57,6 +57,9 @@
         .material-button.secondary:hover {
             background: linear-gradient(45deg, #4b5563, #374151);
         }
+        .footer-bg {
+            background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
         .alert {
             padding: 12px 16px;
             border-radius: 4px;
@@ -83,8 +86,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="/images/logo.jpg" alt="CDF Logo" class="h-10 w-10 rounded-full mr-3">
-                    <h1 class="text-xl font-semibold text-gray-900">CDF Entrenamiento Elite</h1>
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
+                    <span class="text-xl font-semibold text-gray-900">Entrenamiento elite</span>
                 </div>
                 <nav class="flex space-x-6">
                     <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
@@ -204,15 +207,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-auto">
+    <footer class="footer-bg border-t border-gray-700 mt-auto">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    © 2025 CDF Entrenamiento Elite. Todos los derechos reservados.
-                </p>
-                <p class="text-sm text-gray-500 mt-1">
-                    Desarrollado por Alan Stefanov, Software Engineer.
-                </p>
+            <div class="flex justify-between items-center">
+                <div class="text-white text-sm">
+                    Desarrollado por Alana Stefanov, Software Engineer
+                </div>
+                <div class="flex items-center">
+                    <img src="https://i.ibb.co/9kcT37yD/unnamed-1.png" alt="CDF Logo" class="mr-3">
+                </div>
+                <div class="text-white text-sm">
+                    ©2025 CDF Entrenamiento Elite. Todos los derechos reservados
+                </div>
             </div>
         </div>
     </footer>
