@@ -118,28 +118,28 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="stat-card" style="background: linear-gradient(135deg, #C2B588 0%, #B5A573 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #C2B588 0%, #B8A878 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-users text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.totalAlumnos %></div>
                 <div class="stat-label">Total Alumnos</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #88ACC2 0%, #73A5B5 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #88ACC2 0%, #7098B5 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-check-circle text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.activos %></div>
                 <div class="stat-label">Membresías Activas</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #2B3842 0%, #24303A 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #53566D 0%, #484B60 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-times-circle text-2xl"></i>
                 </div>
                 <div class="stat-number"><%= stats.vencidos %></div>
                 <div class="stat-label">Membresías Vencidas</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #C2C188 0%, #B5B573 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #C2C188 0%, #B8B578 100%);">
                 <div class="text-white mb-2">
                     <i class="fas fa-clipboard-list text-2xl"></i>
                 </div>
@@ -150,7 +150,7 @@
 
         <!-- Revenue Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div class="stat-card" style="background: linear-gradient(135deg, #88C299 0%, #73B588 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #C2C188 0%, #B8B578 100%);">
                 <div class="flex justify-between items-start mb-4">
                     <div class="text-white">
                         <i class="fas fa-dollar-sign text-2xl"></i>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="stat-label">Recaudación Mensual</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #5566D 0%, #4A5CC0 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #8988DC 0%, #7A79CF 100%);">
                 <div class="flex justify-between items-start mb-4">
                     <div class="text-white">
                         <i class="fas fa-chart-line text-2xl"></i>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="stat-label">Recaudación Hoy</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #88C2C1 0%, #73B5B4 100%);">
+            <div class="stat-card" style="background: linear-gradient(135deg, #88ACC2 0%, #7098B5 100%);">
                 <div class="text-white mb-4">
                     <i class="fas fa-exclamation-triangle text-2xl"></i>
                 </div>
@@ -207,34 +207,34 @@
         <!-- Quick Actions -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="material-card p-6 text-center">
-                <div class="text-blue-600 mb-4">
+                <div class="mb-4" style="color: #88ACC2;">
                     <i class="fas fa-user-plus text-4xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Agregar Alumno</h3>
                 <p class="text-gray-600 mb-4">Registrar un nuevo alumno en el sistema</p>
-                <a href="/alumnos/add" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <a href="/alumnos/add" class="text-white px-4 py-2 rounded-lg transition-colors" style="background: #88ACC2; hover:background: #7098B5;">
                     Agregar
                 </a>
             </div>
 
             <div class="material-card p-6 text-center">
-                <div class="text-green-600 mb-4">
+                <div class="mb-4" style="color: #C2C188;">
                     <i class="fas fa-clipboard-list text-4xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Nuevo Plan</h3>
                 <p class="text-gray-600 mb-4">Crear un nuevo plan de entrenamiento</p>
-                <a href="/planes/add" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                <a href="/planes/add" class="text-white px-4 py-2 rounded-lg transition-colors" style="background: #C2C188; hover:background: #B8B578;">
                     Crear
                 </a>
             </div>
 
             <div class="material-card p-6 text-center">
-                <div class="text-purple-600 mb-4">
+                <div class="mb-4" style="color: #8988DC;">
                     <i class="fas fa-user-tie text-4xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Colaborador</h3>
                 <p class="text-gray-600 mb-4">Agregar un nuevo colaborador</p>
-                <a href="/colaboradores/add" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                <a href="/colaboradores/add" class="text-white px-4 py-2 rounded-lg transition-colors" style="background: #8988DC; hover:background: #7A79CF;">
                     Agregar
                 </a>
             </div>
