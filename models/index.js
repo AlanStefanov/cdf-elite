@@ -115,10 +115,9 @@ const Colaborador = sequelize.define('Colaborador', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    dni: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+    rol: {
+        type: DataTypes.ENUM('Profesor', 'Administrador', 'Recepcionista', 'Entrenador', 'Nutricionista', 'Fisioterapeuta'),
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -131,32 +130,6 @@ const Colaborador = sequelize.define('Colaborador', {
     telefono: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    fecha_nacimiento: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    fecha_contratacion: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    rol: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    salario: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
     }
 });
 
