@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -27,10 +27,13 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background-image: url('https://i.ibb.co/FQJBs2g/unnamed-2.png');
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                url('https://i.ibb.co/FQJBs2g/unnamed-2.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
         }
         
         .login-card {
@@ -141,10 +144,11 @@
         }
         
         .footer {
-            background: #2c3e50;
+            background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
             color: white;
             text-align: center;
             padding: 20px;
+            border-top: 1px solid #333;
         }
         
         .footer-content {
