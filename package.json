@@ -1,8 +1,7 @@
-
 {
   "name": "cdf-crm",
   "version": "1.0.0",
-  "description": "Sistema de gestión de clientes y membresías para Club de Fútbol Elite",
+  "description": "Sistema de gestión de clientes y membresías para Gimnasio",
   "main": "server.js",
   "author": "Alan Stefanov",
   "license": "ISC",
